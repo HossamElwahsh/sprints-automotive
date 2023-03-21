@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+'Author: Hossam Elwahsh
+!theme cerulean
+
+title Login Workflow
+scale 1000 width
+
+|Front End|
+
+start
+|#lightgray|Back End|
+|Front End|
+
+:show login form/
+#midnightblue:(A)
+note left:recurring entry point for simplicity
+label login_form
+:user clicks login/
+:basic validation;
+note left: validate length and basic\nsyntax for email & password
+if(valid?) then (false)
+    -[#indianred]->
+    #darkkhaki:alert "invalid input"/
+    #midnightblue:(A)
+    detach
+else (true)
+    -[#darkgreen]->
+    |Back End|
+    if(email exists?) then (no)
+        -[#indianred]->
+        |Front End|
+        #darkkhaki:alert "invalid email address"/
+        #midnightblue:(A)
+        detach
+    else (yes)
+        -[#darkgreen]->
+        |Back End|
+        if(account locked?) then (yes)
+                -[#indianred]->
+                |Front End|
+                #indianred:alert "Account is locked"/
+                #midnightblue:(A)
+                detach
+            else (no)
+            -[#darkgreen]->
+            |Back End|
+            if(password match) then (yes)
+                :trials = 0;
+                :setup session\n& log user in;
+                -[#darkgreen]->
+                |Front End|
+                #green:Welcome Screen/
+                stop
+            else (<color:red>no)
+                |Back End|
+                label sp_lab0
+                label sp_lab1
+                :trials++;
+                note left:Assuming trials is set\n to 0 upon signup
+                if(trials >= 3) then (no)
+                    |Front End|
+                    -[#indianred]->
+                    #lightcoral:alert "failed login attempt <trials>/3"/
+                    #midnightblue:(A)
+                    detach
+
+                else (yes)
+                    |Back End|
+                    #lightcoral:lock account;
+                    |Front End|
+                    -[#indianred]->
+                    #lightcoral:alert "3 failed login attempts\nYour account has been locked"/
+                    #midnightblue:(A)
+                    detach
+
+
+
+
+
+
+@enduml
