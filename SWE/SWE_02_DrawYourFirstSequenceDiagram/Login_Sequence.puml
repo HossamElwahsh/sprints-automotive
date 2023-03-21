@@ -6,6 +6,8 @@ title Login Sequence Diagram
 autonumber
 actor User
 
+skinparam backgroundColor #white
+
 == Sample Registration ==
 User -> Front_End: Register
 activate Front_End
