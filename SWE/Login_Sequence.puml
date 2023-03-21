@@ -3,8 +3,9 @@
 'Author: Hossam Elwahsh
 !theme cerulean
 title Login Sequence Diagram
-
 autonumber
+actor User
+
 == Sample Registration ==
 User -> Front_End: Register
 activate Front_End
