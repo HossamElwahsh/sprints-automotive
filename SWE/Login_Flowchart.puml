@@ -45,7 +45,7 @@ else (true)
             else (no)
             -[#darkgreen]->
             |Back End|
-            if(password match) then (yes)
+            if(password match?) then (yes)
                 :trials = 0;
                 :setup session\n& log user in;
                 -[#darkgreen]->
