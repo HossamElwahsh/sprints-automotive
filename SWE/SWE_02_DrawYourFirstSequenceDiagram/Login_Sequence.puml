@@ -40,7 +40,7 @@ deactivate User
 
 User -> Front_End: Login Request
 activate Front_End #lightblue
-Front_End -> Front_End: basic validation\nemail, password syntax
+Front_End -> Front_End: basic client side validation\nemail, password syntax
 
 alt #mistyrose invalid input
     Front_End -[#indianred]-> Front_End: **alert** "Invalid Input"
