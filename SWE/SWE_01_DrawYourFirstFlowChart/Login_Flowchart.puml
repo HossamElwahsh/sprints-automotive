@@ -4,6 +4,7 @@
 !theme cerulean
 
 title Login Workflow
+skinparam backgroundColor #white
 scale 1000 width
 
 |#beige|Front End|
