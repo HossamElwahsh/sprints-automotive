@@ -16,13 +16,15 @@ deactivate User
 Front_End -> Back_End: User Data
 activate Back_End
 Back_End -> Back_End: set login_trials = 0
-Back_End --> Front_End: Alert "Registration success"
+Back_End --> Front_End: OK "Registration success"
+User <-- Front_End: Alert "Registration success"
 deactivate Back_End
 deactivate Front_End
 
 User -> Front_End: Navigate to login
 activate Front_End
 activate User
+User <-- Front_End: Login Page
 deactivate Front_End
 deactivate User
 
@@ -91,7 +93,7 @@ else #white user email exist
             Back_End -> Back_End: set **login_trials = 0**
             Back_End --> Front_End: Login success
             activate Front_End #lightblue
-            Front_End --> Front_End: redirect to welcome page
+            Front_End -> Front_End: redirect to welcome page
             Front_End --> User: show welcome page
             deactivate Front_End
         end
