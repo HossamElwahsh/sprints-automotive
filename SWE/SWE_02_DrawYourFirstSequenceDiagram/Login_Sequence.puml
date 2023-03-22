@@ -16,7 +16,7 @@ deactivate User
 Front_End -> Back_End: User Data
 activate Back_End
 Back_End -> Back_End: set login_trials = 0
-Back_End --> Front_End: alert "Registration success"
+Back_End --> Front_End: Alert "Registration success"
 deactivate Back_End
 deactivate Front_End
 
@@ -39,11 +39,13 @@ activate User
 deactivate User
 
 User -> Front_End: Login Request
+activate User
+deactivate User
 activate Front_End #lightblue
 Front_End -> Front_End: basic client side validation\nemail, password syntax
 
 alt #mistyrose invalid input
-    Front_End -[#indianred]-> Front_End: **alert** "Invalid Input"
+    Front_End -[#indianred]-> User: **Alert** "Invalid Input"
 
 else #technology valid input
     Front_End -> Back_End: send user login info
@@ -54,14 +56,16 @@ end
 
 alt #mistyrose user email doesn't exist
 
-Back_End -[#indianred]-> Front_End: **alert** "Invalid email address\nUser not found"
+Back_End -[#indianred]-> Front_End: **Error** "Invalid email address\nUser not found"
 activate Front_End #lightblue
+User <-[#indianred]- Front_End: **Alert** "Invalid email address\nUser not found"
 deactivate Front_End
 
 else #white user email exist
     alt #pink user account is locked
-    Back_End -[#indianred]-> Front_End: **alert** "Your account is locked/disabled."
+    Back_End -[#indianred]-> Front_End: **Error** "Your account is locked/disabled."
     activate Front_End #lightblue
+    User <-[#indianred]- Front_End: **Alert** "Your account is locked/disabled."
     deactivate Front_End
 
     else #white user account is OK
@@ -70,13 +74,15 @@ else #white user email exist
 
             alt #pink login_trials >= 3
                 Back_End -> Back_End: **Lock User Account**
-                Back_End --> Front_End: **alert** "3 failed login attempts\nyour account has been locked"
+                Back_End --> Front_End: **Error** "3 failed login attempts"
                 activate Front_End #lightblue
+                User <-[#indianred]- Front_End: **Alert** "3 failed login attempts\nyour account has been locked"
                 deactivate Front_End
 
             else #mistyrose login_trials < 3
-            Back_End --> Front_End: **alert** "failed login attempt <login_trials>/3"
+            Back_End --> Front_End: **Error** "failed login attempt <login_trials>/3"
             activate Front_End #lightblue
+            User <-[#indianred]- Front_End: **Alert** "failed login attempt <login_trials>/3"
             deactivate Front_End
 
             end
@@ -86,6 +92,7 @@ else #white user email exist
             Back_End --> Front_End: Login success
             activate Front_End #lightblue
             Front_End --> Front_End: redirect to welcome page
+            Front_End --> User: show welcome page
             deactivate Front_End
         end
     end
