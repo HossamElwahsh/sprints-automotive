@@ -3,7 +3,7 @@
 *.iml
 out
 gen
-
+private/*
 ### C++ template
 # Prerequisites
 *.d
