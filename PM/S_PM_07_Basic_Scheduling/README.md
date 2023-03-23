@@ -23,3 +23,7 @@
 - F
 
 ## Full Answer 👇
+
+See Visio Project file `Basic_scheduling.vsdx`
+
+![Basic_Scheduling](https://user-images.githubusercontent.com/15612446/227369122-afebb2f7-38cc-4121-82d1-07d97446e4f1.png)
