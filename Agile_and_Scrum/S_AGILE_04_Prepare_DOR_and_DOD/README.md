@@ -2,7 +2,7 @@
 ### Our Definition of Ready for User Stories:
 - The story should be written exactly in the ‘user story’ format.
 - The story is independent of all others.
-- The value/acceptance criteria of the story is clearly written.
+- The value/acceptance criteria of the story are clearly written.
 - The story can be estimated.
 - The story is small enough to fit in a single iteration (Sprint).
 - The story can be tested.
