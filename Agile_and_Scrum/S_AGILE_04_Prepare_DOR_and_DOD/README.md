@@ -12,15 +12,15 @@
 - Prioritized sprint backlog.
 - everything (defects, stories, hidden work) is contained in the backlog.
 - All members calculated their individual work capacity.
-- All users stories meet the user story DoR.
+- All users' stories meet the user story DoR.
 
 ----
 # DoD 👇
 ### Our Web Food Ordering Platform Project Definition of Done:
 - No debug logs visible in release.
-- Comment todos are completed and removed.
+- Comment to-dos are completed and removed.
 - Up to date with repository.
-- Code obfuscated and minifyed.
+- Code obfuscated and minified.
 - Tests written and passing.
 - Security vulnerability scan pass.
 - Cross-browser testing done on current top 5 browsers.
