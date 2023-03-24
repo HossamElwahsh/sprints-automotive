@@ -25,6 +25,8 @@ Items to include on the sprint backlog based on availabilty of team:
 
 Team is confident that we will finish the required tasks on time.
 
+---
+
 ### Part 2 - Plan:
 - planned and identified tasks for each team member in the upcoming table.
 

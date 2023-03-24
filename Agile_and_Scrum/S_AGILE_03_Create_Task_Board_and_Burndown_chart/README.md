@@ -3,6 +3,7 @@
 ### Task board
 ![Trello task board](JPG_taskboard.jpg)
 
+---
 ### Burndown chart
 We are at day 8, delayed by one task behind schedule.
 
