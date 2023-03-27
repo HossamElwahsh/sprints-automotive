@@ -10,8 +10,6 @@
 #include <string.h>
 
 #define STACK_SIZE 10
-#define DEBUG 0
-
 
 typedef struct stack {              // 11 bytes
     uint8_t elements[STACK_SIZE];   // 10 bytes

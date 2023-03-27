@@ -5,6 +5,7 @@
  */
 
 #include "stack.h"
+#define DEBUG 0 // shows extra logs
 
 // Balanced Parentheses function
 int8_t isBalancedParanthethes(uint8_t *expression);
