@@ -76,6 +76,7 @@ int8_t isBalancedParanthethes(uint8_t *expression){
     uint8_t parenthesesFoundFlag = 0;
 
     // Algorithm balanced parentheses checking
+    system("cls");
     printf("\nChecking expression: '%s'\n\n", expression);
     for (int i = 0; i < strlen((char*)expression); ++i) {
 
