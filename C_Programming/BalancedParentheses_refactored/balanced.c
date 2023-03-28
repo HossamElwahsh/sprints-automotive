@@ -4,14 +4,9 @@
  *  @bug more than 9 parentheses in expression may output unpredicted results
  */
 
-#include "stack.h"
-#define DEBUG 0 // shows extra logs
-
-// Balanced Parentheses function
-int8_t isBalancedParanthethes(uint8_t *expression);
-
-// Helper functions
-int8_t stripString(char *str, uint8_t *strippedStr);
+#include <stack.h>
+#include <balanced.h>
+#include <stdlib.h>
 
 
 /**
@@ -76,8 +71,6 @@ int8_t isBalancedParanthethes(uint8_t *expression){
     uint8_t parenthesesFoundFlag = 0;
 
     // Algorithm balanced parentheses checking
-    system("cls");
-    printf("\nChecking expression: '%s'\n\n", expression);
     for (int i = 0; i < strlen((char*)expression); ++i) {
 
         // Opening parentheses
@@ -119,51 +112,5 @@ int8_t isBalancedParanthethes(uint8_t *expression){
     }else{
         free(stack);
         return -1; // unbalanced
-    }
-}
-
-int main()
-{
-    char userInput[30] = {0};
-    uint8_t expression[STACK_SIZE+1] = {0}; // 10 char + 1 terminating null
-    int8_t result;
-    while (1)
-    {
-        printf("\n-----------------------------------------------------------\n");
-        printf("Parentheses balance checker, supports {} and () only");
-        printf("\n-----------------------------------------------------------\n");
-        printf("Enter expression (MAX %llu chars - 10 brackets) or q to exit:", sizeof userInput);
-        fgets(userInput, 30, stdin);
-
-        // Check for 'q' quit command
-        if(strcmpi("q\n", userInput) == 0)
-        {
-            printf("Exiting..");
-            break;
-        }
-
-        // strip user input to brackets only of size 10 chars
-        if(stripString(userInput, expression))
-        {
-            // Check if parentheses are balanced
-            result = isBalancedParanthethes(expression);
-            switch (result) {
-                case -2:
-                    printf("Result: No parentheses {,},(,) is used\n");
-                    break;
-                case -1:
-                    printf("Result: Not balanced\n");
-                    break;
-                case 0:
-                    printf("Result: Balanced\n");
-                    break;
-                default:
-                    printf("Result: Unknown, try again\n");
-                    break;
-            }
-        }else{
-            printf("Alert: Expression too long, try again\n");
-            continue;
-        }
     }
 }
