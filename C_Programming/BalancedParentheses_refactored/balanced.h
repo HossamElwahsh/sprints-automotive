@@ -1,10 +1,7 @@
-//
-// Created by Hossam on 28/3/2023.
-//
-
 #ifndef BALANCEDPARENTHESES_BALANCED_H
 #define BALANCEDPARENTHESES_BALANCED_H
 
+#include <stack.h>
 #define DEBUG 0 // shows extra logs
 
 // Balanced Parentheses function

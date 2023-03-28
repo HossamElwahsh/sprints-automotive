@@ -1,12 +1,4 @@
-//
-// Created by Hossam on 28/3/2023.
-//
-
-#include "stack.h"
-#include "balanced.h"
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 int8_t printStack(ST_stack_t *stack)
 {

@@ -1,9 +1,9 @@
-//
-// Created by Hossam on 28/3/2023.
-//
-
 #ifndef BALANCEDPARENTHESES_MAIN_H
 #define BALANCEDPARENTHESES_MAIN_H
+
+#include "balanced.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /** Description:
  * - This function takes a reference to the stack

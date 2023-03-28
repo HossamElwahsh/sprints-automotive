@@ -4,10 +4,8 @@
  *  @bug more than 9 parentheses in expression may output unpredicted results
  */
 
-#include <stack.h>
 #include <balanced.h>
 #include <stdlib.h>
-
 
 /**
  * Strip a string to another string of only {, }, (, )
