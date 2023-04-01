@@ -15,10 +15,10 @@
 // Typedef declarations
 typedef struct stack {              // 11 bytes
     uint8_t elements[STACK_SIZE];   // 10 bytes
-    int8_t top;                      // 1 byte
+    int8_t top;                     // 1 byte
 }ST_stack_t; // Type
 
-/* Description:
+/** Description:
  * - This function takes a reference to a stack type
  * - Initialize this stack with Zeros
  * - Initialize the top with -1
@@ -28,7 +28,7 @@ typedef struct stack {              // 11 bytes
 void createEmptyStack(ST_stack_t *stack);
 
 
-/* Description:
+/** Description:
  * - This function takes a reference to the stack
  * - Checks if the stack is full or not
  * Return:
@@ -37,7 +37,7 @@ void createEmptyStack(ST_stack_t *stack);
  */
 int8_t isFull(ST_stack_t *stack);
 
-/* Description:
+/** Description:
  * - This function takes a reference to the stack
  * - Checks if the stack is empty or not
  * Return:
@@ -46,7 +46,7 @@ int8_t isFull(ST_stack_t *stack);
  */
 int8_t isEmpty(ST_stack_t *stack);
 
-/* Description:
+/** Description:
  * - This function takes a reference to the stack and data to store
  * - Stores the data passed into the stack
  * Return:
@@ -54,7 +54,7 @@ int8_t isEmpty(ST_stack_t *stack);
  * - returns 0 otherwise
  */
 int8_t push(ST_stack_t *stack, uint8_t data);
-/* Description:
+/** Description:
  * - This function takes a reference to the stack
  * - Stores the data popped from the stack in a data variable
  * Return:
@@ -63,7 +63,7 @@ int8_t push(ST_stack_t *stack, uint8_t data);
  */
 int8_t pop(ST_stack_t *stack, uint8_t *data);
 
-/* Description:
+/** Description:
  * - This function takes a reference to the stack
  * - Stores the data peeked from the stack in a data variable
  * Return:
@@ -73,7 +73,7 @@ int8_t pop(ST_stack_t *stack, uint8_t *data);
 int8_t peek(ST_stack_t *stack, uint8_t *data);
 
 
-/* Description:
+/** Description:
  * - This function takes a reference to the stack
  * - Stores its top data into a variable
  * Return:

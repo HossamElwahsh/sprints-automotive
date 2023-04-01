@@ -7,47 +7,6 @@
 #include <balanced.h>
 #include <stdlib.h>
 
-/**
- * Strip a string to another string of only {, }, (, )
- *
- * This function takes an input string `str` and strips it down to another string `strippedStr`
- * containing only the characters '{', '}', '(', and ')'. The stripped string is returned
- * in the `strippedStr` parameter.
- *
- * @param[in] str          The input string to be stripped.
- * @param[out] strippedStr The stripped string containing only '{', '}', '(', and ')'.
- *
- * @return
- * - 0 if the `strippedStr` buffer overflows.\n
- * - 1 if the stripping is successful.
- */
-int8_t stripString(char *str, uint8_t *strippedStr) {
-    uint8_t j = 0;
-
-    // loop over `str` chars
-    for (int8_t i = 0; i < strlen(str); i++) {
-
-        // if char match any of ( ) { } add to `strippedStr`
-        if (str[i] == '(' || str[i] == ')' || str[i] == '{' || str[i] == '}') {
-
-            if(j<10)
-            {
-                strippedStr[j++] = str[i];
-            }else{
-                return 0;
-            }
-        }
-
-    }
-
-#if DEBUG
-    printf("null index j = %u", j); // should always be 10 or less
-#endif
-    strippedStr[j] = '\0';
-    return 1;
-}
-
-
 /** Description:
  * - This function takes an expression array max 10 characters
  * - Checks if the parentheses are balanced or not
