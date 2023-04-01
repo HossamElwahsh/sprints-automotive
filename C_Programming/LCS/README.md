@@ -2,7 +2,12 @@
 The Longest Consecutive Subsequence(LCS) is a subset of the original array where the numbers are in sorted order,
 from lowest to highest, and are in consecutive, increasing order.
 
+## Overview
+
 Executable in `bin/LCS.exe`
+
+Application takes in user input of comma separated array of integer numbers
+enclosed in [], outputs (1: sorted array, 2: LCS)
 
 ### Project Tree
 ```
@@ -11,7 +16,8 @@ LCS:.
 │   main.c
 │   main.h
 │   README.md
-│   Tests_screenshots.jpg
+│   Tests_1_to_4_screenshot.jpg
+│   Tests_5_screenshot.jpg
 │
 ├───Bin
 |       LCS.exe

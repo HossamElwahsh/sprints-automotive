@@ -17,7 +17,7 @@
  *
  * @return -1 if the array is empty
  * @return -2 if the array size is 0 or >10
- * @return -3 if there is no LCS,
+ * @return -3 if there is no LCS
  * (i.e. all array elements are not consecutive at all)
  * @return 0 otherwise
  */
