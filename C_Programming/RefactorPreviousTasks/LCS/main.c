@@ -1,7 +1,15 @@
 #include "main.h"
 #include <stdio.h>
 
-void findLCS()
+/**
+ * - Takes and verifies user input of array of integers
+ *      enclosed in `[]` (max characters #MAXINPUT)
+ * - Calculates array size
+ * - Sends (array, array size) to sort.c:insertionSort for sorting
+ * - Sends (sorted_array, array size) to lcs.c:lcsGetSize to calculate LCS size
+ * - Prints results/errors
+ * */
+void findLCS(void)
 {
     char input[MAX_INPUT] = { '\0' };
     int32_t arr[MAX_INPUT] = { 0 };
@@ -80,9 +88,6 @@ void findLCS()
                     printf("Unknown error occurred while trying to calculate LCS\n");
                     break;
             }
-
-
-
             break;
         case -1:
             printf("Array is empty\n");
@@ -102,6 +107,7 @@ int main() {
     {
         findLCS();
         printf("\n\nPress any key to continue or CTRL+C to exit");
+        printf("\n==============================================\n");
         system("pause");
         system("cls");
     }

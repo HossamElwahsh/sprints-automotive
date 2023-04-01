@@ -13,17 +13,19 @@
  * @param array [in,out] reference to array
  * @param arraySize [in] array size
  * Return:
- * - returns -1 if the array is empty
- * - returns -2 if the array size is 0 or >10
- * - returns 0 if sorting is done without errors
+ * - @return -1 if the array is empty
+ * - @return -2 if the array size is 0 or >10
+ * - @return 0 if sorting is done without errors
  */
 int8_t insertionSort(int32_t *array, uint8_t arraySize);
 
 /** Description:
  * - This function takes a reference to an array of integers
  * - Prints all array elements
+ * @param array [in] reference to array
+ * @param arraySize [in] array size
  * Return:
- * - Nothing to return
+ * - Prints array elements
  */
 void printArray(int32_t *array, uint8_t arraySize);
 

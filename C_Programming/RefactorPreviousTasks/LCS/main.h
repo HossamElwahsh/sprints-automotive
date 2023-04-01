@@ -17,12 +17,13 @@
 int main();
 
 /**
- * - Takes user input (max characters #MAXINPUT)
- * - parses comma delimited integers to array of integers
- * - sorts the array in ascending order
- * - finds LCS
- * - prints results / errors
- */
+ * - Takes and verifies user input of array of integers
+ *      enclosed in `[]` (max characters #MAXINPUT)
+ * - Calculates array size
+ * - Sends (array, array size) to sort.c:insertionSort for sorting
+ * - Sends (sorted_array, array size) to lcs.c:lcsGetSize to calculate LCS size
+ * - Prints results/errors
+ * */
 void findLCS();
 
 #endif //LCS_MAIN_H
