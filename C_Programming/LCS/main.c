@@ -2,11 +2,11 @@
 #include <stdio.h>
 
 /**
- * Takes and verifies user input of array of integers enclosed in `[]`
- * Calculates array size
- * Send (array, array size) to sort.c:insertionSort for sorting
- * Send (sorted_array, array size) to lcs.c:lcsGetSize to calculate LCS size
- * Prints errors/data on the way
+ * - Takes and verifies user input of array of integers enclosed in `[]` (max characters #MAXINPUT)
+ * - Calculates array size
+ * - Sends (array, array size) to sort.c:insertionSort for sorting
+ * - Sends (sorted_array, array size) to lcs.c:lcsGetSize to calculate LCS size
+ * - Prints results/errors
  * */
 void findLCS(void)
 {
