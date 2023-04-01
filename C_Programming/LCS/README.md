@@ -11,6 +11,7 @@ LCS:.
 │   main.c
 │   main.h
 │   README.md
+│   Tests_screenshots.jpg
 │
 ├───Bin
 |       LCS.exe

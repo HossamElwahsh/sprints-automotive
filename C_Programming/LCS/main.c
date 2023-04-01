@@ -80,9 +80,6 @@ void findLCS()
                     printf("Unknown error occurred while trying to calculate LCS\n");
                     break;
             }
-
-
-
             break;
         case -1:
             printf("Array is empty\n");
@@ -102,6 +99,7 @@ int main() {
     {
         findLCS();
         printf("\n\nPress any key to continue or CTRL+C to exit");
+        printf("\n==============================================\n");
         system("pause");
         system("cls");
     }
