@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 /**
- * - Takes and verifies user input of array of integers enclosed in `[]` (max characters #MAXINPUT)
+ * - Takes and verifies user input of array of integers
+ *      enclosed in `[]` (max characters #MAXINPUT)
  * - Calculates array size
  * - Sends (array, array size) to sort.c:insertionSort for sorting
  * - Sends (sorted_array, array size) to lcs.c:lcsGetSize to calculate LCS size
