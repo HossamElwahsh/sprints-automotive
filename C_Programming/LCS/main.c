@@ -1,7 +1,14 @@
 #include "main.h"
 #include <stdio.h>
 
-void findLCS()
+/**
+ * Takes and verifies user input of array of integers enclosed in `[]`
+ * Calculates array size
+ * Send (array, array size) to sort.c:insertionSort for sorting
+ * Send (sorted_array, array size) to lcs.c:lcsGetSize to calculate LCS size
+ * Prints errors/data on the way
+ * */
+void findLCS(void)
 {
     char input[MAX_INPUT] = { '\0' };
     int32_t arr[MAX_INPUT] = { 0 };
