@@ -30,6 +30,8 @@
 ## Design Overview
 `Full PDF` -> [LED Sequence V1.0 - Design.pdf](Docs/LED%20Sequence%20V1.0%20-%20Design.pdf)
 
+`Full Proteus Project` in `Proteus` Folder
+
 ![img.png](img.png)
 
 ## Project Tree
