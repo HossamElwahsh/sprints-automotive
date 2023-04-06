@@ -5,7 +5,7 @@
 ## Quick Links
 - `Project PDF` -> [LED Sequence V1.0 - Design.pdf](Docs/LED%20Sequence%20V1.0%20-%20Design.pdf)
 - `Proteus Project` in `Proteus` Folder
-- `Project Hex` in `Proteus/Led Sequence V1.0.hex` [View](Proteus/Led Sequence V1.0.hex)
+- `Project Hex` in `Proteus/Led Sequence V1.0.hex` [View](Proteus/Led%20Sequence%20V1.0.hex)
 - `Download full project` -> [Download](https://download-directory.github.io?url=https://github.com/HossamElwahsh/sprints-automotive/tree/main/Embedded_Systems_Level_1/2_S_ESL1_02%20LED%20sequence%20V1.0)
 
 ### Requirements
