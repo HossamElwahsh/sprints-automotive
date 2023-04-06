@@ -8,21 +8,6 @@
 /// Include .h files
 #include "interrupts.h"
 
-/*
- * 1. Enables global interrupts
- *  set I-bit in SREG to 1
- */
-
-/**
- * 1. Enables global interrupts
- *  sets I-(7th) bit in SREG to 1
- */
-void EXI_sei(void)
-{
-    bitSet(SREG, 7);
-}
-
-
 /**
  * 2. Choose interrupt sense -> use MCUCR
  * @param interrupt [in] Interrupt number (INT0, INT1)
