@@ -9,11 +9,11 @@
 #include "interrupts.h"
 
 /**
- * 2. Choose interrupt sense -> use MCUCR
+ * Sets and enables an external interrupt pin with given mode
  * @param interrupt [in] Interrupt number (INT0, INT1)
  * @param interruptSenseMode [in] sense mode enum
  */
-void EXI_enableInterrupt(EN_EXI_INT_t interrupt, EN_EXI_SENSE_t interruptSenseMode)
+EN_EXI_ERROR_t EXI_enableInterrupt(EN_EXI_INT_t interrupt, EN_EXI_SENSE_t interruptSenseMode)
 {
     // enable global interrupt flag
     sei();
@@ -31,6 +31,8 @@ void EXI_enableInterrupt(EN_EXI_INT_t interrupt, EN_EXI_SENSE_t interruptSenseMo
                 MCUCR &= 0xFC; // clear INT0 bits
                 MCUCR |= interruptSenseMode; // sets INT0 sense mode
                 break;
+            default:
+                return EXI_ERROR;
         }
 
         // 3. enable INT0
@@ -40,7 +42,6 @@ void EXI_enableInterrupt(EN_EXI_INT_t interrupt, EN_EXI_SENSE_t interruptSenseMo
     {
         switch (interruptSenseMode) {
             case LOW_LEVEL:
-                // todo check calculation
                 MCUCR &= ((LOW_LEVEL<<2) | 0x3);
                 break;
             case ANY_LEVEL:
@@ -48,21 +49,26 @@ void EXI_enableInterrupt(EN_EXI_INT_t interrupt, EN_EXI_SENSE_t interruptSenseMo
             case RISING_EDGE:
                 MCUCR &= 0xF3; // clear INT1 bits
 
-                // todo check calculation
                 MCUCR |= ((interruptSenseMode << 2) | 0x3); // sets INT1 sense mode
                 break;
+            default:
+                return EXI_ERROR;
         }
 
         // 3. enable INT1
         bitSet(GICR, 7);
+    }else{
+        return EXI_ERROR;
     }
+
+    return EXI_OK;
 }
 
 /**
  * Disables a given interrupt pin
  * @param interrupt [in] enum (INT0, INT1)
  */
-void EXI_disableInterrupt(EN_EXI_INT_t interrupt)
+EN_EXI_ERROR_t EXI_disableInterrupt(EN_EXI_INT_t interrupt)
 {
     switch (interrupt) {
         case INT0:
@@ -73,8 +79,9 @@ void EXI_disableInterrupt(EN_EXI_INT_t interrupt)
             break;
         default:
             /* Do Nothing */
-            break;
+            return EXI_ERROR;
     }
+    return EXI_OK;
 }
 
 

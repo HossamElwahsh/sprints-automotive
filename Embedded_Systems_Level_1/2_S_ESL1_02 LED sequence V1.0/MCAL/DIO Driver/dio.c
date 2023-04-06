@@ -5,6 +5,9 @@
 /// include .h files
 #include "dio.h"
 
+#define MAX_PIN_NO 7
+#define MIN_PIN_NO 0
+
 /// function definitions
 
 /**
@@ -14,6 +17,8 @@
  * @param direction [in] direction for pin enum (IN, OUT)
  */
 EN_DIO_Error_T DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T direction) {
+
+    if(pinNumber > MAX_PIN_NO || pinNumber < MIN_PIN_NO) return DIO_Error;
 
     switch (portNumber) {
 
@@ -72,8 +77,8 @@ EN_DIO_Error_T DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRE
  * @param value [in] value to write
  */
 EN_DIO_Error_T DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t value) {
+    if(pinNumber > MAX_PIN_NO || pinNumber < MIN_PIN_NO) return DIO_Error;
     switch (portNumber) {
-
         case A:
             if (value == HIGH || value == LOW) {
                 bitWrite(PORT_A, pinNumber, value);
@@ -118,6 +123,7 @@ EN_DIO_Error_T DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t va
  * @param *value [out] pointer to output pin value into
  */
 EN_DIO_Error_T DIO_read(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t *value) {
+    if(pinNumber > MAX_PIN_NO || pinNumber < MIN_PIN_NO) return DIO_Error;
 
     switch (portNumber) {
         case A:
@@ -144,6 +150,8 @@ EN_DIO_Error_T DIO_read(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t *va
  * @param portNumber [in] Port to use
  */
 EN_DIO_Error_T DIO_toggle(uint8_t pinNumber, EN_DIO_PORT_T portNumber) {
+    if(pinNumber > MAX_PIN_NO || pinNumber < MIN_PIN_NO) return DIO_Error;
+
     uint8_t *val = LOW;
     EN_DIO_Error_T res = DIO_read(pinNumber, portNumber, val);
     if (res == DIO_OK) {
