@@ -27,11 +27,12 @@
                     Press 8 (OFF, OFF, OFF, OFF)
                     Press 9 (ON, OFF, OFF, OFF)
 ---------
-## Design Overview
-`Full PDF` -> [LED Sequence V1.0 - Design.pdf](Docs/LED%20Sequence%20V1.0%20-%20Design.pdf)
+## Quick Links
+- `Download this folder?` -> [Download](https://download-directory.github.io?url=https://github.com/HossamElwahsh/sprints-automotive/tree/main/Embedded_Systems_Level_1/2_S_ESL1_02%20LED%20sequence%20V1.0)
+- `Full PDF` -> [LED Sequence V1.0 - Design.pdf](Docs/LED%20Sequence%20V1.0%20-%20Design.pdf)
+- `Full Proteus Project` in `Proteus` Folder
 
-`Full Proteus Project` in `Proteus` Folder
-
+## App Design Overview
 ![img.png](img.png)
 
 ## Project Tree
