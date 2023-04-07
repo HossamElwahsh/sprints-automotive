@@ -9,7 +9,7 @@
 - `Download full project` -> [Download](https://download-directory.github.io/?url=https://github.com/HossamElwahsh/sprints-automotive/tree/main/Embedded_Systems_Level_1/3_S_ESL1_03%20-%20LED%20sequence%20V2.0)
 
 ### Requirements
-#### Develop a system that controls 4 LEDs lighting sequence according to button pressing.
+#### Develop a system that controls 4 LEDs lighting sequence according to button pressing. (USE EXTERNAL INTERRUPTS)
 
 ### 1. System Requirements Specifications
 #### 1.1. Hardware Requirements
