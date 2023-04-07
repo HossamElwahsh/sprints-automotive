@@ -11,25 +11,27 @@
 
 #include "../../MCAL/DIO Driver/dio.h"
 
-/// Button state
-#define Button_Released    0
-#define Button_Pressed     1
+typedef enum EN_ButtonError_t
+{
+    BUTTON_OK,
+    BUTTON_ERROR
+}EN_ButtonError_t;
 
 /**
  * Initializes port and pin as button
  * @param buttonPort [in] Port to use
  * @param buttonPin [in] Pin number in port
  */
-void BUTTON_init(EN_DIO_PORT_T buttonPort, uint8_t buttonPin);
+EN_ButtonError_t BUTTON_init(EN_DIO_PORT_T buttonPort, uint8_t buttonPin);
 
 // Read Button State
 /**
  * Reads button state and stores value in buttonState
  * @param buttonPort [in] Port to use
  * @param buttonPin [in] Pin number in port
- * @param buttonState [out] pointer to store button state into
+ * @param buttonState [out] Store Button State (1:High / 0:Low)
  */
-void BUTTON_read(EN_DIO_PORT_T buttonPort, uint8_t buttonPin, uint8_t * buttonState);
+EN_ButtonError_t BUTTON_read(EN_DIO_PORT_T buttonPort, uint8_t buttonPin, uint8_t * buttonState);
 
 
 

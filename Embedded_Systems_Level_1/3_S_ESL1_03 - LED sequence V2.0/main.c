@@ -1,5 +1,5 @@
 /*
- * Led Sequence V1.0.c
+ * Led Sequence V2.0.c
  *
  * Created: 5/4/2023 9:37:34 PM
  * Author : Hossam Elwahsh

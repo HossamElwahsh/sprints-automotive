@@ -815,3 +815,4 @@ coverage*[.json, .xml, .info]
 
 # User defined
 test-*
+*requirements.html

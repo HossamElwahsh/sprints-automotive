@@ -7,15 +7,25 @@
 
 #include "button.h"
 
-
-// Button initialize
-void BUTTON_init(EN_DIO_PORT_T buttonPort, uint8_t buttonPin)
+/**
+ * Initialize button at given port/pin
+ * @param buttonPort Port
+ * @param buttonPin Pin at given Port
+ */
+EN_ButtonError_t BUTTON_init(EN_DIO_PORT_T buttonPort, uint8_t buttonPin)
 {
-	DIO_init(buttonPin, buttonPort, IN);
+	EN_DIO_Error_T dioError = DIO_init(buttonPin, buttonPort, IN);
+    return dioError == DIO_Error ? BUTTON_ERROR : BUTTON_OK;
 }
 
-// Read Button State
-void BUTTON_read(EN_DIO_PORT_T buttonPort, uint8_t buttonPin, uint8_t* buttonState)
+/**
+ * Reads button state and stores value in buttonState
+ * @param buttonPort [in] Port to use
+ * @param buttonPin [in] Pin number in port
+ * @param buttonState [out] Store Button State (1:High / 0:Low)
+ */
+EN_ButtonError_t BUTTON_read(EN_DIO_PORT_T buttonPort, uint8_t buttonPin, uint8_t* buttonState)
 {
-	DIO_read(buttonPin, buttonPort, buttonState);
+	EN_DIO_Error_T dioError = DIO_read(buttonPin, buttonPort, buttonState);
+    return dioError == DIO_Error ? BUTTON_ERROR : BUTTON_OK;
 }

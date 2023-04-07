@@ -43,8 +43,6 @@
 void INT_VECT(void)
 
 
-
-
 /************************************************************************/
 /** TYPEDEFS										                    */
 /************************************************************************/
@@ -52,6 +50,12 @@ void INT_VECT(void)
 typedef enum EN_EXI_INT_t {
     INT0, INT1
 } EN_EXI_INT_t;
+
+
+typedef enum EN_EXI_ERROR_t {
+    EXI_OK,
+    EXI_ERROR
+} EN_EXI_ERROR_t;
 
 /**
  * Interrupt sense modes
@@ -73,24 +77,22 @@ typedef enum EN_EXI_SENSE_t {
 
 
 /************************************************************************/
-/** STEPS to program EX_interrupts										*/
+/** EX_interrupts Functions     										*/
 /************************************************************************/
 
 
-
 /**
- * 2. Choose interrupt sense -> use MCUCR
- * 3. Also internally enables external interrupt from GICR
+ * Sets and enables an external interrupt pin with given mode
  * @param interrupt [in] Interrupt number (INT0, INT1)
  * @param interruptSenseMode [in] sense mode enum
  */
-void EXI_enableInterrupt(EN_EXI_INT_t interrupt, EN_EXI_SENSE_t interruptSenseMode);
+EN_EXI_ERROR_t EXI_enableInterrupt(EN_EXI_INT_t interrupt, EN_EXI_SENSE_t interruptSenseMode);
 
 /**
  * Disables a given interrupt pin
  * @param interrupt [in] enum (INT0, INT1)
  */
-void EXI_disableInterrupt(EN_EXI_INT_t interrupt);
+EN_EXI_ERROR_t EXI_disableInterrupt(EN_EXI_INT_t interrupt);
 
 
 /**

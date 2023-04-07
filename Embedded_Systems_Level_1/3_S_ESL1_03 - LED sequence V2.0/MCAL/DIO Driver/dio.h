@@ -31,8 +31,8 @@ typedef enum EN_DIO_DIRECTION_T
 
 typedef enum EN_DIO_Error_T
 {
-    OK = 1,
-    Error = 2
+    DIO_OK = 1,
+    DIO_Error = 2
 }EN_DIO_Error_T;
 
 /** all driver macros */
@@ -45,7 +45,7 @@ typedef enum EN_DIO_Error_T
  * @param portNumber [in] Port to configure
  * @param direction [in] direction for pin enum (IN, OUT)
  */
-void DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T direction);    // initialize DIO direction
+EN_DIO_Error_T DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T direction);    // initialize DIO direction
 
 
 /**
@@ -54,7 +54,7 @@ void DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T di
  * @param portNumber [in] Port to use
  * @param value [in] value to write
  */
-void DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t value);                  // write data to DIO
+EN_DIO_Error_T DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t value);                  // write data to DIO
 
 /**
  * Toggles pin value for the given port/pin

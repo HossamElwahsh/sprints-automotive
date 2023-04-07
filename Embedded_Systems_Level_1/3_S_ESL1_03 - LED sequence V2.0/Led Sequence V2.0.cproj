@@ -13,7 +13,7 @@
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <AssemblyName>Led Sequence V1.0</AssemblyName>
-    <Name>Led Sequence V1.0</Name>
+    <Name>Led Sequence V2.0</Name>
     <RootNamespace>Led Sequence V1.0</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
@@ -175,12 +175,6 @@
     <Compile Include="MCAL\EXI Driver\interrupts.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="MCAL\Timer Driver\timer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="MCAL\Timer Driver\timer.h">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common" />
@@ -212,7 +206,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Folder Include="MCAL\EXI Driver" />
-    <Folder Include="MCAL\Timer Driver" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

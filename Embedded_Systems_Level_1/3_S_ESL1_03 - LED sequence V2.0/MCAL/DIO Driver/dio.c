@@ -2,17 +2,23 @@
 // Created by Hossam on 5/4/2023.
 //
 
-// include .h
+/// include .h files
 #include "dio.h"
 
-// global variables
+#define MAX_PIN_NO 7
+#define MIN_PIN_NO 0
 
-// function definitions
-void DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T direction) {
+/// function definitions
 
-    // check for pin numbers
+/**
+ * Configures pin at given portNumber as input/output
+ * @param pinNumber [in] pin number
+ * @param portNumber [in] Port to configure
+ * @param direction [in] direction for pin enum (IN, OUT)
+ */
+EN_DIO_Error_T DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T direction) {
 
-    // check PORTs
+    if(pinNumber > MAX_PIN_NO || pinNumber < MIN_PIN_NO) return DIO_Error;
 
     switch (portNumber) {
 
@@ -23,6 +29,7 @@ void DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T di
                 bitClear(DDR_A, pinNumber); // set pin as input
             } else {
                 // error handling
+                return DIO_Error;
             }
 
             break;
@@ -33,6 +40,7 @@ void DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T di
                 bitClear(DDR_B, pinNumber); // set pin as input
             } else {
                 // error handling
+                return DIO_Error;
             }
             break;
         case C:
@@ -42,6 +50,7 @@ void DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T di
                 bitClear(DDR_C, pinNumber); // set pin as input
             } else {
                 // error handling
+                return DIO_Error;
             }
             break;
         case D:
@@ -51,19 +60,31 @@ void DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T di
                 bitClear(DDR_D, pinNumber); // set pin as input
             } else {
                 // error handling
+                return DIO_Error;
             }
             break;
+        default:
+            // bad config
+            return DIO_Error;
     }
+    return DIO_OK;
 }
 
-void DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t value) {
+/**
+ * Writes pin value for the given port/pin
+ * @param pinNumber [in] pin number
+ * @param portNumber [in] Port to use
+ * @param value [in] value to write
+ */
+EN_DIO_Error_T DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t value) {
+    if(pinNumber > MAX_PIN_NO || pinNumber < MIN_PIN_NO) return DIO_Error;
     switch (portNumber) {
-
         case A:
             if (value == HIGH || value == LOW) {
                 bitWrite(PORT_A, pinNumber, value);
             } else {
                 // error handling
+                return DIO_Error;
             }
 
             break;
@@ -72,6 +93,7 @@ void DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t value) {
                 bitWrite(PORT_B, pinNumber, value);
             } else {
                 // error handling
+                return DIO_Error;
             }
             break;
         case C:
@@ -79,6 +101,7 @@ void DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t value) {
                 bitWrite(PORT_C, pinNumber, value);
             } else {
                 // error handling
+                return DIO_Error;
             }
             break;
         case D:
@@ -86,45 +109,58 @@ void DIO_write(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t value) {
                 bitWrite(PORT_D, pinNumber, value);
             }else {
                 // error handling
+                return DIO_Error;
             }
             break;
     }
+    return DIO_OK;
 }
 
-
-/// Read DIO Pin data
+/**
+ * Reads pin value for the given port/pin and stores it in *value
+ * @param pinNumber [in] pin number
+ * @param portNumber [in] Port to use
+ * @param *value [out] pointer to output pin value into
+ */
 EN_DIO_Error_T DIO_read(uint8_t pinNumber, EN_DIO_PORT_T portNumber, uint8_t *value) {
+    if(pinNumber > MAX_PIN_NO || pinNumber < MIN_PIN_NO) return DIO_Error;
 
     switch (portNumber) {
         case A:
             *value = bitRead(PIN_A, pinNumber);
-            return OK;
+            return DIO_OK;
         case B:
             *value = bitRead(PIN_B, pinNumber);
-            return OK;
+            return DIO_OK;
         case C:
             *value = bitRead(PIN_C, pinNumber);
-            return OK;
+            return DIO_OK;
         case D:
             *value = bitRead(PIN_D, pinNumber);
-            return OK;
+            return DIO_OK;
 
         default:
-            return Error;
+            return DIO_Error;
     }
 }
 
-/// Toggle DIO
+/**
+ * Toggles pin value for the given port/pin
+ * @param pinNumber [in] pin number
+ * @param portNumber [in] Port to use
+ */
 EN_DIO_Error_T DIO_toggle(uint8_t pinNumber, EN_DIO_PORT_T portNumber) {
+    if(pinNumber > MAX_PIN_NO || pinNumber < MIN_PIN_NO) return DIO_Error;
+
     uint8_t *val = LOW;
     EN_DIO_Error_T res = DIO_read(pinNumber, portNumber, val);
-    if (res == OK) {
+    if (res == DIO_OK) {
         // toggle bit
         *val = ((*val) == LOW) ? HIGH : LOW;
 
         DIO_write(pinNumber, portNumber, *val);
-        return OK;
+        return DIO_OK;
     } else {
-        return Error;
+        return DIO_Error;
     }
 }
