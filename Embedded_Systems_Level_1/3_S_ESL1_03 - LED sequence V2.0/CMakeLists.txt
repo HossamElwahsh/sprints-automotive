@@ -6,4 +6,4 @@ set(CMAKE_C_STANDARD 11)
 include_directories(.)
 
 add_executable(Led_Sequence_V1_0
-        main.c)
+        main.c Application/application.c)
