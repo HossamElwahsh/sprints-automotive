@@ -26,9 +26,9 @@
 
 /* Buttons */
 #define BUTTON_0_port D
-#define BUTTON_0_PIN 3   // INT0
+#define BUTTON_0_PIN 3   // INT1
 #define BUTTON_1_port D
-#define BUTTON_1_PIN 2   // INT1
+#define BUTTON_1_PIN 2   // INT0
 
 /* Magic Numbers */
 #define NUMBER_OF_LED_STATES 7
