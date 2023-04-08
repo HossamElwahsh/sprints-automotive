@@ -78,6 +78,7 @@ EN_DIO_Error_T DIO_toggle(uint8_t pinNumber, EN_DIO_PORT_T portNumber);
  * Writes a byte to a given PORT
  * @param portNumber [in] Port to use
  * @param byte [in] value to write
+ * @param mask [in] (optional, 0 to disable)
  */
 EN_DIO_Error_T DIO_port_write(EN_DIO_PORT_T portNumber, uint8_t byte, uint8_t mask);
 
