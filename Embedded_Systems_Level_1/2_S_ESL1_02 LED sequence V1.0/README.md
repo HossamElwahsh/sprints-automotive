@@ -36,8 +36,8 @@
                     Press 9 (ON, OFF, OFF, OFF)
 ---------
 
-## App Design Overview
-![img.png](img.png)
+## App State Machine Diagram
+![img.png](img_1.png)
 
 ## Project Tree
 
