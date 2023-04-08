@@ -55,27 +55,22 @@ void App_init()
     /* Initialize blinking modes */
     appBlinkModes = (ST_APP_BLINK_MODES_t){
         .BLINK_1 = (ST_APP_BLINK_MODE_t){
-                .modeIndex = 1,
                 .timeOn = 100,
                 .timeOff = 900
         },
         .BLINK_2 = (ST_APP_BLINK_MODE_t){
-                .modeIndex = 2,
                 .timeOn = 200,
                 .timeOff = 800
         },
         .BLINK_3 = (ST_APP_BLINK_MODE_t){
-                .modeIndex = 3,
                 .timeOn = 300,
                 .timeOff = 700
         },
         .BLINK_4 = (ST_APP_BLINK_MODE_t){
-                .modeIndex = 4,
                 .timeOn = 500,
                 .timeOff = 500
         },
         .BLINK_5 = (ST_APP_BLINK_MODE_t){
-                .modeIndex = 5,
                 .timeOn = 800,
                 .timeOff = 200
         }
