@@ -7,4 +7,6 @@ include_directories(.)
 
 add_executable(Led_Sequence_V1_0
         main.c
-        Test/test_interrupts.c Test/test_interrupts.h)
+        ECUAL/Button\ Driver/button.c
+        ECUAL/Button\ Driver/button.h
+        "ECUAL/LED Driver/led.c" Application/application.c "MCAL/DIO Driver/dio.c" "MCAL/EXI Driver/interrupts.c")

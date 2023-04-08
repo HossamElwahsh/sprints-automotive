@@ -817,3 +817,4 @@ coverage*[.json, .xml, .info]
 test-*
 *requirements.html
 *.docx
+*.mp4
