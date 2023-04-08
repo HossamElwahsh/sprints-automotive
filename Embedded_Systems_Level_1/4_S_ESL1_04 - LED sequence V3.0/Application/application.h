@@ -13,7 +13,7 @@
 typedef struct ST_APP_BLINK_MODE_t{
     uint16_t timeOn;  // 2-bytes
     uint16_t timeOff; // 2-bytes
-}ST_APP_BLINK_MODE_t;   // 5-bytes
+}ST_APP_BLINK_MODE_t;   // 4-bytes
 
 typedef struct ST_APP_BLINK_MODES_t{
     ST_APP_BLINK_MODE_t BLINK_1;    // 4-bytes
