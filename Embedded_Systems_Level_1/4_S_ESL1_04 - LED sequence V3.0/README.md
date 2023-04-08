@@ -47,7 +47,7 @@
 ---------
 
 ## App Layered Architecture
-![Layered Architecture](Docs/Images/Layered_architecture.png)
+![Layered Architecture](Docs/Images/Layered_architecture.jpg)
 
 ## App State Diagram
 ![State Diagram](Docs/Images/Led_Sequence_V3.0_State_Diagram.png)
