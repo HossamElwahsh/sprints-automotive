@@ -36,7 +36,7 @@
 ---------
 
 ## App Architecture
-![img.png](img.png)
+![img.png](Arch.png)
 
 ## Project Tree
 
