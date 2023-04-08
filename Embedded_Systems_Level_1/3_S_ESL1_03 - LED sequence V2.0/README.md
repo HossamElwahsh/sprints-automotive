@@ -35,7 +35,7 @@
                     Press 9 (ON, OFF, OFF, OFF)
 ---------
 
-## App Design Overview
+## App Architecture
 ![img.png](img.png)
 
 ## Project Tree
