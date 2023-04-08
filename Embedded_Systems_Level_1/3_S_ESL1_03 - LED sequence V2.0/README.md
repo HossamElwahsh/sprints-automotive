@@ -4,6 +4,7 @@
 
 ## Quick Links
 - `Project PDF` -> [LED Sequence V2.0 - Design.pdf](Docs/LED%20Sequence%20V2.0%20-%20Design.pdf)
+- `Overview + Unit-testing video` -> [Youtube - LED  Sequence V2.0](https://youtu.be/6s-yVfKjlvc)
 - `Proteus Project` in `Proteus_V2.0` Folder
 - `Project Hex` in `Proteus_V2.0/Led Sequence V2.0.hex` [View](Proteus_V2.0/Led%20Sequence%20V2.0.hex)
 - `Download full project` -> [Download](https://download-directory.github.io/?url=https://github.com/HossamElwahsh/sprints-automotive/tree/main/Embedded_Systems_Level_1/3_S_ESL1_03%20-%20LED%20sequence%20V2.0)
