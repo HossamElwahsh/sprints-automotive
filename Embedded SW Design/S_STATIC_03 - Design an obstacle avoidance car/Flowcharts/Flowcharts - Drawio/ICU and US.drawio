@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-05-14T17:13:10.044Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="DvJc3lOsVA9cbOQGkJcG" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-05-14T20:25:17.921Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="8CT0wiEWW8PDJoR_oQa_" version="21.2.8" type="device">
   <diagram name="Page-1" id="7oLeeqB4X83rpsUO6XK-">
-    <mxGraphModel dx="2170" dy="1180" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1807" dy="562" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -163,14 +163,14 @@
             <mxRectangle x="-207" y="152.5" width="134" height="31" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="1lKavugEmWIM-l1PeXRf-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="waw0lP77cIF_jgCd4xR0-39" source="1lKavugEmWIM-l1PeXRf-2" target="waw0lP77cIF_jgCd4xR0-51">
+        <mxCell id="1lKavugEmWIM-l1PeXRf-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" parent="waw0lP77cIF_jgCd4xR0-39" source="1lKavugEmWIM-l1PeXRf-2" target="waw0lP77cIF_jgCd4xR0-51" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="259" y="346" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="1lKavugEmWIM-l1PeXRf-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="waw0lP77cIF_jgCd4xR0-39" source="waw0lP77cIF_jgCd4xR0-48" target="1lKavugEmWIM-l1PeXRf-1">
+        <mxCell id="1lKavugEmWIM-l1PeXRf-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="waw0lP77cIF_jgCd4xR0-39" source="waw0lP77cIF_jgCd4xR0-48" target="1lKavugEmWIM-l1PeXRf-1" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <UserObject label="&lt;div style=&quot;font-size: 1px&quot;&gt;&lt;font style=&quot;font-size: 11.29px; direction: ltr; letter-spacing: 0px; line-height: 120%; opacity: 1;&quot;&gt;Start&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" Function="EN_DIO_Error_T DIO_init(uint8_t pinNumber, EN_DIO_PORT_T portNumber, EN_DIO_DIRECTION_T direction);" tags="Flowchart" id="waw0lP77cIF_jgCd4xR0-48">
@@ -199,13 +199,13 @@
             <mxGeometry x="29.5" y="223" width="158.5" height="24" as="geometry" />
           </mxCell>
         </UserObject>
-        <mxCell id="1lKavugEmWIM-l1PeXRf-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="waw0lP77cIF_jgCd4xR0-39" source="1lKavugEmWIM-l1PeXRf-1" target="1lKavugEmWIM-l1PeXRf-2">
+        <mxCell id="1lKavugEmWIM-l1PeXRf-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="waw0lP77cIF_jgCd4xR0-39" source="1lKavugEmWIM-l1PeXRf-1" target="1lKavugEmWIM-l1PeXRf-2" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="1lKavugEmWIM-l1PeXRf-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="waw0lP77cIF_jgCd4xR0-39" source="1lKavugEmWIM-l1PeXRf-1" target="waw0lP77cIF_jgCd4xR0-62">
+        <mxCell id="1lKavugEmWIM-l1PeXRf-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="waw0lP77cIF_jgCd4xR0-39" source="1lKavugEmWIM-l1PeXRf-1" target="waw0lP77cIF_jgCd4xR0-62" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="1lKavugEmWIM-l1PeXRf-1" value="&lt;b&gt;&lt;i&gt;trigger&lt;/i&gt;&lt;/b&gt; is &lt;b&gt;&lt;i&gt;HIGH&lt;/i&gt;&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="waw0lP77cIF_jgCd4xR0-39">
+        <mxCell id="1lKavugEmWIM-l1PeXRf-1" value="&lt;b&gt;&lt;i&gt;trigger&lt;/i&gt;&lt;/b&gt; is &lt;b&gt;&lt;i&gt;HIGH&lt;/i&gt;&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="waw0lP77cIF_jgCd4xR0-39" vertex="1">
           <mxGeometry x="68.75" y="98" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="waw0lP77cIF_jgCd4xR0-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;" parent="waw0lP77cIF_jgCd4xR0-39" source="waw0lP77cIF_jgCd4xR0-63" edge="1">
@@ -217,7 +217,7 @@
           <mxGeometry x="246" y="260.25" width="201" height="60.5" as="geometry" />
         </mxCell>
         <UserObject label="&lt;span style=&quot;font-size: 11.29px;&quot;&gt;restart timer&lt;br&gt;&lt;/span&gt;" Function="EN_DIO_Error_T DIO_toggle(uint8_t pinNumber, EN_DIO_PORT_T portNumber);  " tags="Flowchart" id="1lKavugEmWIM-l1PeXRf-2">
-          <mxCell style="verticalAlign=middle;align=center;overflow=width;vsdxID=274;fillColor=#d5e8d4;shape=stencil(nZBLDoAgDERP0z3SIyjew0SURgSD+Lu9kMZoXLhwN9O+tukAlrNpJg1SzDH4QW/URgNYgZTkjA4UkwJUgGXng+6DX1zLfmoymdXo17xh5zmRJ6Q42BWCfc2oJfdAr+Yv+AP9Cb7OJ3H/2JG1HNGz/84klThPVCc=);strokeColor=#82b366;spacingTop=-1;spacingBottom=-1;spacingLeft=-1;spacingRight=-1;points=[[0,0.5,0],[1,0.5,0],[0.5,1,0],[0.5,0,0]];labelBackgroundColor=none;rounded=1;html=1;whiteSpace=wrap;fontFamily=Calibri;" vertex="1" parent="waw0lP77cIF_jgCd4xR0-39">
+          <mxCell style="verticalAlign=middle;align=center;overflow=width;vsdxID=274;fillColor=#d5e8d4;shape=stencil(nZBLDoAgDERP0z3SIyjew0SURgSD+Lu9kMZoXLhwN9O+tukAlrNpJg1SzDH4QW/URgNYgZTkjA4UkwJUgGXng+6DX1zLfmoymdXo17xh5zmRJ6Q42BWCfc2oJfdAr+Yv+AP9Cb7OJ3H/2JG1HNGz/84klThPVCc=);strokeColor=#82b366;spacingTop=-1;spacingBottom=-1;spacingLeft=-1;spacingRight=-1;points=[[0,0.5,0],[1,0.5,0],[0.5,1,0],[0.5,0,0]];labelBackgroundColor=none;rounded=1;html=1;whiteSpace=wrap;fontFamily=Calibri;" parent="waw0lP77cIF_jgCd4xR0-39" vertex="1">
             <mxGeometry x="210.5" y="126" width="79.5" height="24" as="geometry" />
           </mxCell>
         </UserObject>
@@ -322,7 +322,7 @@
         <mxCell id="CZMHbth-sNcNCYmR4d3A-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="CZMHbth-sNcNCYmR4d3A-1" target="waw0lP77cIF_jgCd4xR0-18" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <UserObject label="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 11.29px;&quot;&gt;enable EXI, INT2 (trigger pin)&lt;br&gt;(any logical change)&lt;/span&gt;&lt;/div&gt;" Function="EN_DIO_Error_T DIO_toggle(uint8_t pinNumber, EN_DIO_PORT_T portNumber);  " tags="Flowchart" id="CZMHbth-sNcNCYmR4d3A-1">
+        <UserObject label="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 11.29px;&quot;&gt;enable EXI, INT2 (echo pin)&lt;br&gt;(any logical change)&lt;/span&gt;&lt;/div&gt;" Function="EN_DIO_Error_T DIO_toggle(uint8_t pinNumber, EN_DIO_PORT_T portNumber);  " tags="Flowchart" id="CZMHbth-sNcNCYmR4d3A-1">
           <mxCell style="verticalAlign=middle;align=center;overflow=width;vsdxID=274;fillColor=#d5e8d4;shape=stencil(nZBLDoAgDERP0z3SIyjew0SURgSD+Lu9kMZoXLhwN9O+tukAlrNpJg1SzDH4QW/URgNYgZTkjA4UkwJUgGXng+6DX1zLfmoymdXo17xh5zmRJ6Q42BWCfc2oJfdAr+Yv+AP9Cb7OJ3H/2JG1HNGz/84klThPVCc=);strokeColor=#82b366;spacingTop=-1;spacingBottom=-1;spacingLeft=-1;spacingRight=-1;points=[[0,0.5,0],[1,0.5,0],[0.5,1,0],[0.5,0,0]];labelBackgroundColor=none;rounded=1;html=1;whiteSpace=wrap;fontFamily=Calibri;" parent="1" vertex="1">
             <mxGeometry x="-795.25" y="368" width="160.5" height="33" as="geometry" />
           </mxCell>
