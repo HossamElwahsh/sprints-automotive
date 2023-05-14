@@ -3,3 +3,6 @@
 
 # Design Document
 ### 👉 [Google Doc](https://docs.google.com/document/d/1kwcloVrSpHKAel0oKJezC8gOq-6Oevdyn4Iag23L84M/edit?usp=sharing) 👉 [PDF](Obstacle%20Avoidance%20Robot%20V1.0%20Design.pdf) 
+
+# App State Machine
+![StateMachine](Flowcharts/Flowcharts%20-%20Images/AppStateMachine.jpg)
