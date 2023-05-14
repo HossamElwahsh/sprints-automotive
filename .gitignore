@@ -77,3 +77,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 /private/
+
+*.dtmp
+*.bkp
