@@ -1,0 +1,20 @@
+Layers
+
+App: Application
+
+Service: Robot Controller
+
+HAL: LCD, Ultrasonic, Keypad, DCM, BTN
+
+MCAL: EXI, DIO, Timer, ICU
+
+===================================================================================================
+
+Ultrasonic APIs
+- US_init(trigger pin, echo pin)
+- float US_getDistance(void) // sends a pulse, blocks till timestamp receive > calc dist
+- US_evtDistance() // callback received distance (update flag & lastDist)
+ 
+ICU APIs
+- ICU_init(echo pin, callback)       // init timer setup, callback location
+- ICU_getCaptureValue(void)          // reset/start timer (add note for timer ov if using timer0)
