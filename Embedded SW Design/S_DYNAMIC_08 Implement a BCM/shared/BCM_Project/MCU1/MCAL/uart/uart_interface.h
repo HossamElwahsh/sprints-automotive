@@ -174,6 +174,13 @@ typedef struct
 enu_uart_error_t_ uart_init(const str_uart_config_t_ * ptr_uart_config);
 
 /**
+ * De-Initializes UART Module
+ *
+ * @return [enum] enu_uart_error
+ */
+enu_uart_error_t_ uart_deinit(void);
+
+/**
  * Sends a byte of data
  * @param [in]uint8_data data byte to be sent
  *

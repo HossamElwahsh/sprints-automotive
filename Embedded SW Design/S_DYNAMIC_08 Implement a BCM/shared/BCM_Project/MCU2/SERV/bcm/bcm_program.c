@@ -70,16 +70,28 @@ enu_system_status_t bcm_init(const str_bcm_instance_t * ptr_str_bcm_instance)
 
 enu_system_status_t bcm_deInit(const str_bcm_instance_t * ptr_str_bcm_instance)
 {
-    /* ?? */
-
     /* Do Specific Actions on instance */
     switch (ptr_str_bcm_instance->uint8_instance_id) {
 
         case BCM_PROTOCOL_UART:
-            break;
+        {
+            enu_uart_error_t_ enu_uart_error = uart_deinit();
+            switch (enu_uart_error) {
+                case UART_OK:
+                {
+                    return BCM_SYSTEM_OK;
+                }
+                default:
+                {
+                    return BCM_ERROR_INTERNAL_SYS_FAILURE;
+                }
+            }
+        }
         case BCM_PROTOCOL_SPI:
+            /* todo implement */
             break;
         case BCM_PROTOCOL_I2C:
+            /* todo implement */
             break;
     }
     return BCM_SYSTEM_OK;

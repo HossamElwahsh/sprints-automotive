@@ -216,7 +216,43 @@ enu_uart_error_t_ uart_init(const str_uart_config_t_ * ptr_uart_config)
     return UART_OK;
 }
 
-// todo fix async send
+/**
+ * De-Initializes UART Module
+ *
+ * @return [enum] enu_uart_error
+ */
+enu_uart_error_t_ uart_deinit(void)
+{
+
+    // Reset UCSRC
+    UART_UCSRC_REG = 0x80;
+
+    // Reset UART speed
+    CLEAR_BIT(UART_UCSRA_REG, UART_UCSRA_U2X);
+
+    // Disable TX/RX and interrupts
+    CLEAR_BIT(UART_UCSRB_REG, UART_UCSRB_TXEN);
+    CLEAR_BIT(UART_UCSRB_REG, UART_UCSRB_RXEN);
+
+    CLEAR_BIT(UART_UCSRB_REG, UART_UCSRB_TXCIE); // disable TXI
+    CLEAR_BIT(UART_UCSRB_REG, UART_UCSRB_RXCIE); // disable RXI
+    CLEAR_BIT(UART_UCSRB_REG, UART_UCSRB_UDRIE);
+
+    // CLEAR UART BAUD RATE
+    UART_UBRRH_REG = 0x00;
+    UART_UBRRL_REG = 0x00;
+
+    // re-init receive queue to reset
+    cqueue_initializeQueue(&glstr_cqueue_rec_buffer);
+
+    return UART_OK;
+}
+
+/**
+ * Sends a byte of data
+ * @param [in]uint8_data data byte to be sent
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_send(uint8_t_ uint8_data)
 {
     enu_uart_error_t_ en_uart_error = UART_OK;
