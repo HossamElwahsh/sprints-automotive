@@ -30,7 +30,7 @@ typedef struct
 //        I2CConfig i2cConfig;
     };
 
-    void (* ptr_fun_event_handler)(str_operation_info_t_ str_operation_info);
+//    void (* ptr_fun_event_handler)(str_operation_info_t_ str_operation_info);
 }str_bcm_instance_t;
 
 typedef enum
