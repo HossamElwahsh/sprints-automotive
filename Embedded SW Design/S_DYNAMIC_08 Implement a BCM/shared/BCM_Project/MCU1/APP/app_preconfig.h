@@ -15,8 +15,7 @@
 #define RECEIVE_LED_PORT   DIO_PORT_B
 #define RECEIVE_LED_PIN    DIO_PIN_2
 
-#define TEST_STR "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\r"
-#define TEST_STR_SIZE 58
+#define TEST_STR "\r\rLorem ipsum dolor sit amet, consectetur adipiscing elit.\r\r"
 
 
 /* ECHO MODE */

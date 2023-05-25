@@ -18,12 +18,13 @@
  * Shows Syn/Ack/SOT/EOT characters on Virtual Terminal
  * To easily differentiate between data packets
  * */
-#define UART_SHOW_DEBUG_CHARS TRUE
+#define UART_SHOW_DEBUG_CHARS 1
+//#define UART_SHOW_DEBUG_CHARS 0
 
 /* TURN OFF FOR PRODUCTION USE */
 #define UART_DEBUG FALSE
 
-#if UART_SHOW_DEBUG_CHARS == TRUE
+#if UART_SHOW_DEBUG_CHARS
     // Start of Transmission character
     #define UART_SOT_CHAR '^'
     // End of Transmission character
