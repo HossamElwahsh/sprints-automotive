@@ -50,6 +50,11 @@ static void uart_debugSendStr(const uint8_t_ * uint8_data);
 static void uart_debugLogErrorCodes(enu_uart_error_t_ enu_uart_error);
 #endif
 
+/**
+ * Initializes UART Module with a specific given config
+ * @param [in]ptr_uart_config pointer to UART configuration
+ * @return enu_uart_error
+ */
 enu_uart_error_t_ uart_init(const str_uart_config_t_ * ptr_uart_config)
 {
     /* Init Global Variables */
@@ -308,6 +313,13 @@ enu_uart_error_t_ uart_send(uint8_t_ uint8_data)
     return en_uart_error;
 }
 
+/**
+ * Sends multiple bytes up to 65,535 over UART
+ * @param [in]str_send_queue send queue
+ * @param [in]uint16_dataLength data length to send
+ *
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_send_n(str_circularqueue_t_ ** str_send_queue, uint16_t_ uint16_dataLength)
 {
     enu_uart_error_t_ enu_uart_error = UART_OK;
@@ -401,7 +413,12 @@ enu_uart_error_t_ uart_send_n(str_circularqueue_t_ ** str_send_queue, uint16_t_ 
     return enu_uart_error;
 }
 
-//enu_uart_error_t_ uart_receive(uint8_t_ ** uint8ptr_data, uint16_t_ * uint16_received_data_length)
+/**
+ * Receives multiple bytes up to 65,535 or queue MAX over UART
+ * @param str_circularqueue_queue receive queue
+ * @param uint16_received_data_length received data length
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_receive(str_circularqueue_t_ ** str_circularqueue_queue, uint16_t_ * uint16_received_data_length)
 {
     enu_uart_error_t_ enu_uart_error = UART_OK;
@@ -476,6 +493,11 @@ enu_uart_error_t_ uart_receive(str_circularqueue_t_ ** str_circularqueue_queue, 
     return enu_uart_error;
 }
 
+/**
+ * Helper Function to receive a byte synchronously
+ * @param [out]uint8ptr_data ptr to store received byte into
+ * @return
+ */
 static enu_uart_error_t_ uart_receiveByte(uint8_t_ * uint8ptr_data)
 {
     /* UART Receive */
@@ -493,6 +515,10 @@ static enu_uart_error_t_ uart_receiveByte(uint8_t_ * uint8ptr_data)
     return UART_OK;
 }
 
+/**
+ * Helper Function, initiates handshake with other UARTs (sync)
+ * @return enu_uart_error
+ */
 static enu_uart_error_t_ uart_handshake()
 {
     switch (stglenu_uart_operating_mode) {
@@ -549,11 +575,12 @@ static enu_uart_error_t_ uart_calculateUBBR(enu_uart_baud_rate_t_ enu_uart_baud_
     }
 }
 
+
 /**
- *
+ * Handles flow of events for UART
  *
  * @easter_egg "he told the dispatcher that his wife wasn't breathing"
- * @return
+ * @return [enum] enu_uart_error
  */
 enu_uart_error_t_ uart_dispatcher(void)
 {
@@ -722,6 +749,12 @@ enu_uart_error_t_ uart_dispatcher(void)
     return UART_OK;
 }
 
+/**
+ * Sets callback ptr to notify events on
+ * @param ptr_callback ptr to notify function
+ *
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_setCallback(void (* ptr_callback)(uint8_t_ uint8_instance_id, str_operation_info_t_ str_operation_info))
 {
     if(NULL_PTR != ptr_callback)
@@ -733,6 +766,11 @@ enu_uart_error_t_ uart_setCallback(void (* ptr_callback)(uint8_t_ uint8_instance
     }
 }
 
+/**
+ * Publishes UART events onto callback ptr if available
+ * @param enu_a_operation UART event
+ * @param uint16_a_data_length Extra argument to pass data length
+ */
 static void uart_event_handler(enu_operation_t enu_a_operation, uint16_t_ uint16_a_data_length)
 {
     str_operation_info_t_ str_operation_info = {
