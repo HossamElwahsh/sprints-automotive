@@ -29,16 +29,16 @@
     // End of Transmission character
     #define UART_EOT_CHAR '$'
 
-    #define UART_HANDSHAKE_SYN_CHAR 0x05
-    #define UART_HANDSHAKE_ACK_CHAR 0x06
+    #define UART_HANDSHAKE_SYN_CHAR '&'
+    #define UART_HANDSHAKE_ACK_CHAR '%'
 #else
     // Start of Transmission character
     #define UART_SOT_CHAR 0x02
     // End of Transmission character
     #define UART_EOT_CHAR 0x03
 
-    #define UART_HANDSHAKE_SYN_CHAR '&'
-    #define UART_HANDSHAKE_ACK_CHAR '%'
+    #define UART_HANDSHAKE_SYN_CHAR 0x05
+    #define UART_HANDSHAKE_ACK_CHAR 0x06
 #endif
 
 #define UART_CARRIAGE_RETURN_CHAR 0x13  // Enter Key
