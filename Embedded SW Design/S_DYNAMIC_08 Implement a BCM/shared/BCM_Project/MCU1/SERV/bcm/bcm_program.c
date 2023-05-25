@@ -171,7 +171,13 @@ enu_system_status_t bcm_send_n(const str_bcm_instance_t * ptr_str_bcm_instance, 
     return BCM_SYSTEM_OK;
 }
 
-
+/**
+ * Used to receive data from a certain BCM instance
+ * @param [in]ptr_str_bcm_instance BCM instance address
+ * @param [out]str_rec_queue receiving queue
+ * @param [out]uint16_received_data_length data length to read
+ * @return [enum] enu_system_status_t
+ */
 enu_system_status_t bcm_receive(const str_bcm_instance_t * ptr_str_bcm_instance, str_circularqueue_t_ ** str_rec_queue, uint16_t_ * uint16_received_data_length)
 {
     switch (ptr_str_bcm_instance->uint8_instance_id) {
@@ -215,6 +221,11 @@ enu_system_status_t bcm_receive(const str_bcm_instance_t * ptr_str_bcm_instance,
     return BCM_SYSTEM_OK;
 }
 
+/**
+ * Handles flow of events for a certain bcm instance
+ * @param str_bcm_instance
+ * @return [enum] enu_system_status_t
+ */
 enu_system_status_t bcm_dispatcher(const str_bcm_instance_t * str_bcm_instance)
 {
     switch (str_bcm_instance->uint8_instance_id) {

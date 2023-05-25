@@ -11,5 +11,4 @@
 
 #define QUEUE_SIZE 500
 
-
 #endif /* CQUEUE_PRECONFIG_H_ */

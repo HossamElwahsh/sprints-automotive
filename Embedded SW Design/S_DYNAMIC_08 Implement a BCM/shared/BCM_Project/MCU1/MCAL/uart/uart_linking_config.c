@@ -17,5 +17,4 @@ const str_uart_config_t_ glcststr_uart_config_ch_0 = {
         .enu_uart_data_length = DATA_8_BITS,
         .enu_uart_stop_bits_count = ONE_STOP_BIT,
         .enu_uart_operating_mode = UART_ASYNC,
-
 };

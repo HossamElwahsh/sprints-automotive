@@ -36,29 +36,32 @@ typedef struct
 typedef enum
 {
     BCM_SYSTEM_OK = 0,
-
     // config errors
     BCM_ERROR_BAD_CFG,
-
     // operational errors
     BCM_INVALID_DATA_LENGTH,
     BCM_ERROR_OPR_NULL_PTR_GIVEN,
     BCM_ERROR_OPR_SYN_FAILED,
-
-//    BCM_ERROR_OPR_TRANSMISSION_IN_PROGRESS,
-//    BCM_ERROR_OPR_RECEIVING_IN_PROGRESS,
-
     /* Still Sending or Receiving Data */
     BCM_ERROR_OPR_BUSY,
 
     /* Trying to read received data while it's empty */
     BCM_ERROR_OPR_NO_DATA_TO_READ,
-
     BCM_ERROR_INTERNAL_SYS_FAILURE,
 }enu_system_status_t;
 
+/**
+ * Initializes BCM Instance
+ * @param ptr_str_bcm_instance BCM Instance
+ * @return enu_system_status
+ */
 enu_system_status_t bcm_init(const str_bcm_instance_t * ptr_str_bcm_instance);
 
+/**
+ * De-initializes BCM Instance
+ * @param ptr_str_bcm_instance BCM Instance
+ * @return enu_system_status
+ */
 enu_system_status_t bcm_deInit(const str_bcm_instance_t * ptr_str_bcm_instance);
 
 /**
@@ -72,7 +75,7 @@ enu_system_status_t bcm_send(const str_bcm_instance_t * ptr_str_bcm_instance, ui
 
 /**
  * Sends multiple bytes over a certain BCM instance
- * @param [in]ptr_str_bcm_instance BCM instance
+ * @param [in]ptr_str_bcm_instance BCM instance address
  * @param [in]ptr_str_send_queue ptr to queue holding data to be sent
  * @param [in]uint16_dataLength data length to send
  *
@@ -80,8 +83,20 @@ enu_system_status_t bcm_send(const str_bcm_instance_t * ptr_str_bcm_instance, ui
  */
 enu_system_status_t bcm_send_n(const str_bcm_instance_t * ptr_str_bcm_instance, str_circularqueue_t_ ** str_send_queue, uint16_t_ uint16_dataLength);
 
+/**
+ * Used to receive data from a certain BCM instance
+ * @param [in]ptr_str_bcm_instance BCM instance address
+ * @param [out]str_rec_queue receiving queue
+ * @param [out]uint16_received_data_length data length to read
+ * @return [enum] enu_system_status_t
+ */
 enu_system_status_t bcm_receive(const str_bcm_instance_t * ptr_str_bcm_instance, str_circularqueue_t_ ** str_rec_queue, uint16_t_ * uint16_received_data_length);
 
+/**
+ * Handles flow of events for a certain bcm instance
+ * @param str_bcm_instance
+ * @return [enum] enu_system_status_t
+ */
 enu_system_status_t bcm_dispatcher(const str_bcm_instance_t * str_bcm_instance);
 
 /**

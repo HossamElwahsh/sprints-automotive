@@ -30,7 +30,14 @@ enum{
     APP_PENDING_REC
 }enu_app_state;
 
+/**
+ * Initializes Application
+ */
 void app_initialize();
+
+/**
+ * Starts Application Super Loop
+ */
 void app_start();
 
 #endif /* APP_INTERFACE_H_ */

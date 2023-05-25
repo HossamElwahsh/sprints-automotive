@@ -164,16 +164,54 @@ typedef struct
 
 
 /** Functions Prototypes */
+
+/**
+ * Initializes UART Module with a specific given config
+ * @param [in]ptr_uart_config pointer to UART configuration
+ *
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_init(const str_uart_config_t_ * ptr_uart_config);
 
+/**
+ * Sends a byte of data
+ * @param [in]uint8_data data byte to be sent
+ *
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_send(uint8_t_ uint8_data);
 
+/**
+ * Sends multiple bytes up to 65,535 or queue MAX over UART
+ * @param [in]str_send_queue send queue
+ * @param [in]uint16_dataLength data length to send
+ *
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_send_n(str_circularqueue_t_ ** str_send_queue, uint16_t_ uint16_dataLength);
 
+ /**
+  * Receives multiple bytes up to 65,535 or queue MAX over UART
+  * @param str_circularqueue_queue receive queue
+  * @param uint16_received_data_length received data length
+  * @return [enum] enu_uart_error
+  */
 enu_uart_error_t_ uart_receive(str_circularqueue_t_ ** str_circularqueue_queue, uint16_t_ * uint16_received_data_length);
 
+/**
+ * Sets callback ptr to notify events on
+ * @param ptr_callback ptr to notify function
+ *
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_setCallback(void (* ptr_callback)(uint8_t_ uint8_instance_id, str_operation_info_t_ str_operation_info));
 
+
+/**
+ * Handles flow of events for UART
+ *
+ * @return [enum] enu_uart_error
+ */
 enu_uart_error_t_ uart_dispatcher(void);
 
 #endif /* UART_INTERFACE_H_ */
