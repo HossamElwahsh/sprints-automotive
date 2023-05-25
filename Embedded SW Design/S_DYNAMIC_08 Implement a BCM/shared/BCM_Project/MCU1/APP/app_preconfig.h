@@ -16,7 +16,12 @@
 #define RECEIVE_LED_PIN    DIO_PIN_2
 
 #define TEST_STR "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\r\r"
-#define TEST_STR_SIZE 58
 
+/* ECHO MODE */
+#define APP_TEST_ENABLE 1
+//#define APP_TEST_ENABLE 0
+
+#define SYN_STR "BCM Operating"
+#define ACK_STR "Confirm BCM Operating"
 
 #endif /* APP_PRECONFIG_H_ */
