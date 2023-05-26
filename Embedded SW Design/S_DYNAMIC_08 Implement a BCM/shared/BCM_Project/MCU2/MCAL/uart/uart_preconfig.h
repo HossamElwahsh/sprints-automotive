@@ -24,6 +24,5 @@
 #define UART_CARRIAGE_RETURN_CHAR 0x13  // Enter Key
 #define UART_NEW_LINE_CHAR 0x0D         // \r
 
-#define UART_TX_RETRY_COUNT 3 // Retries to transmit before failing
 
 #endif /* UART_PRECONFIG_H_ */
