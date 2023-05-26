@@ -11,7 +11,9 @@ highest possible throughput.
 > - `Project Documentation`
     >     👉 [PDF](https://github.com/HossamElwahsh/sprints-automotive/blob/cecb5c2abcbae1fcaac1a3a8283f19a8ed6262c7/Embedded%20SW%20Design/S_DYNAMIC_08%20Implement%20a%20BCM/shared/Documents/BCM_Hossam_Elwahsh.pdf)
     >     👉 [Google Docs](https://docs.google.com/document/d/1RGJPeiUToRLG9_xMESDV1yPxoA4-tSaAatRC9MfRurg/edit?usp=sharing)
-> - `Video` 👉 In Progress
+> - `Video` 👉 [Youtube](https://youtu.be/QXWsYwRUksM)
+>   - 00:00 to 05:00 - Required Video
+>   - 05:00 to 09:27 - Extras
 > - ---
 > ### Technical
 > - `Proteus Simulation (Proteus 8.13)` 👉 [BCM.pdsprj](Simulation/BCM.pdsprj)
