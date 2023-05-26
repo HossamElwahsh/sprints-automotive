@@ -22,7 +22,6 @@
 #include "../SERV/bcm/bcm_interface.h"
 
 /* Enums */
-
 enum{
     APP_IDLE = 0,
     APP_TX_COMPLETE,

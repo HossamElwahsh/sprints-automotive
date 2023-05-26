@@ -6,12 +6,17 @@
  */ 
 
 #include "app_interface.h"
+#include "app_private.h"
 
+/* Global Variables */
 static str_circularqueue_t_ glstr_send_queue;
 str_circularqueue_t_ * gl_str_ptr_send_queue;
 
-/* Private Functions */
-static void app_event_handler(uint8_t_ uint8_instance_id, str_operation_info_t_ str_operation_info);
+/* Private Types */
+static struct {
+    str_match_t_ str_matches_arr[MATCH_SIZE];
+    sint8_t_ size;
+} str_matches;
 
 void app_initialize()
 {
@@ -26,27 +31,30 @@ void app_initialize()
     /* init sending queue */
     cqueue_initializeQueue(&glstr_send_queue);
 
+    // init matches structure
+    str_matches.size = MATCH_SIZE;
+    str_matches.str_matches_arr[0].uint8_match_with = (uint8_t_ * ) SYN_STR;
+    str_matches.str_matches_arr[0].enu_match_id = SYN_COMMAND;
+    str_matches.str_matches_arr[0].uint8_matched = 0;
+
+    str_matches.str_matches_arr[1].uint8_match_with = (uint8_t_ * ) ACK_STR;
+    str_matches.str_matches_arr[1].enu_match_id = ACK_COMMAND;
+    str_matches.str_matches_arr[1].uint8_matched = 0;
+
+    // init LEDs, initially off
+
     LED_init(SEND_LED_PORT, SEND_LED_PIN);
     LED_init(RECEIVE_LED_PORT, RECEIVE_LED_PIN);
 
-    LED_on(SEND_LED_PORT, SEND_LED_PIN);
-    LED_on(RECEIVE_LED_PORT, RECEIVE_LED_PIN);
-
-//    uint8_t_ data[100] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra ante a fringilla vestibulum.";
-//    for (int i = 0; i < 100; ++i) {
-//        cqueue_enqueue(&glstr_send_queue, data[i]);
-//    }
-//    uart_send_n(&gl_str_ptr_send_queue, 100);
-//    bcm_send_n(&gl_cst_str_data_bus, &gl_str_ptr_send_queue, 100);
+    LED_off(SEND_LED_PORT, SEND_LED_PIN);
+    LED_off(RECEIVE_LED_PORT, RECEIVE_LED_PIN);
 }
 void app_start()
 {
 
-    str_circularqueue_t_ * queue;
-    str_circularqueue_t_ ** dataPtr = &queue;
-
-
-    uint16_t_ dataLen = 0;
+    str_circularqueue_t_ * str_receive_queue;
+    str_circularqueue_t_ ** ptr_str_receive_queue = &str_receive_queue;
+    uint16_t_ uint16_received_length = 0;
 
     while(TRUE)
     {
@@ -68,44 +76,133 @@ void app_start()
                 break;
             case APP_PENDING_REC:
 
-//                uart_receive(dataPtr, &dataLen);
-                bcm_receive(&gl_cst_str_data_bus, dataPtr, &dataLen);
+//                uart_receive(str_receive_queue, &uint16_received_length);
+                bcm_receive(&gl_cst_str_data_bus, ptr_str_receive_queue, &uint16_received_length);
 
-                /* Receive Data */
-                while(dataLen > 0)
+#if APP_TEST_ENABLE
+                /* Retrieve all receive Data */
+                while(uint16_received_length > 0)
                 {
                     uint8_t_ tempDataByte = 0;
-                    cqueue_dequeue(queue, &tempDataByte);
+                    cqueue_dequeue(str_receive_queue, &tempDataByte);
                     cqueue_enqueue(&glstr_send_queue, tempDataByte);
-                    dataLen--;
+                    uint16_received_length--;
                 }
 
                 uint16_t_ currentCount = cqueue_getCount(&glstr_send_queue);
 
-/*
-                while(currentCount != 0)
+                if(currentCount == 1)
                 {
-                    currentCount = cqueue_getCount(&glstr_send_queue);
-//                    bcm_send(&gl_cst_str_data_bus, currentCount + '0');
-
-                    */
-/* send new line before echoing text back *//*
-
-                    bcm_send(&gl_cst_str_data_bus, UART_NEW_LINE_CHAR);
-
-                    uint8_t_ tempDataByte = 0;
-                    cqueue_dequeue(&glstr_send_queue, &tempDataByte);
-                    while(bcm_send(&gl_cst_str_data_bus, tempDataByte) != BCM_SYSTEM_OK);
+                    uint8_t_ uint8_temp_byte = 0;
+                    cqueue_dequeue(&glstr_send_queue, &uint8_temp_byte);
+                    bcm_send(&gl_cst_str_data_bus, uint8_temp_byte);
                 }
-*/
-//                bcm_send(&gl_cst_str_data_bus, UART_NEW_LINE_CHAR);
-                /** to test send_n(), comment the above while loop and uncomment the below line */
-                bcm_send_n(&gl_cst_str_data_bus, &gl_str_ptr_send_queue, currentCount);
+                else
+                {
+                    bcm_send_n(&gl_cst_str_data_bus, &gl_str_ptr_send_queue, currentCount);
+                }
+
+#else
+                enu_match_id_t_ enu_match_id = app_dequeue_match(uint16_received_length, str_receive_queue);
+                switch (enu_match_id) {
+
+                    case NO_MATCH:
+                        break;
+                    case SYN_COMMAND:
+                        /* Str matches SYN command */
+                        /* Send (Reply back with) Confirmation Command */
+                        app_send_str(&gl_cst_str_data_bus, (uint8_t_ *) ACK_STR);
+                        break;
+                    case ACK_COMMAND:
+                        break;
+                }
+#endif
 
                 enu_app_state = APP_IDLE; // reset app state
                 break;
         }
     }
+}
+
+/**
+ * Sends a string across BCM instance
+ * @param ptr_uint8_string
+ */
+static void app_send_str(const str_bcm_instance_t * str_bcm_instance, const uint8_t_ * ptr_uint8_string)
+{
+
+    /* Send Initial Test Data */
+
+    while (NULL != *ptr_uint8_string) {
+        cqueue_enqueue(&glstr_send_queue, *ptr_uint8_string);
+        ptr_uint8_string++;
+    }
+
+    bcm_send_n(str_bcm_instance, &gl_str_ptr_send_queue, cqueue_getCount(&glstr_send_queue));
+
+}
+
+/**
+ * Reads received bytes and cross matches them with match structure
+ * @param uint16_a_received_length received data length
+ * @param ptr_str_receive_queue ptr to receive queue
+ * @return
+ */
+static enu_match_id_t_ app_dequeue_match(uint16_t_ uint16_a_received_length, str_circularqueue_t_ * ptr_str_receive_queue)
+{
+// check if received data matches SYN_STR "BCM Operating"
+    // reset match flags
+    enu_match_id_t_ enu_match_id = NO_MATCH;
+    for (int i = 0; i < str_matches.size; ++i) {
+        str_matches.str_matches_arr[i].uint8_matched = TRUE;
+    }
+
+    uint8_t_ uint8_index = 0;
+
+    while(uint16_a_received_length > 0)
+    {
+        // temp received byte
+        uint8_t_ uint8_temp_byte = 0;
+        cqueue_dequeue(ptr_str_receive_queue, &uint8_temp_byte);
+
+        /* Check if received data matches our search array */
+        for (int i = 0; i < str_matches.size; ++i) {
+
+            // current local character in search array
+            uint8_t_ uint8_current_character = str_matches.str_matches_arr[i].uint8_match_with[uint8_index];
+
+            if(1 == str_matches.str_matches_arr[i].uint8_matched)
+            {
+                if(
+                        (NULL != uint8_current_character) &&
+                        (uint8_temp_byte != uint8_current_character)
+                        )
+                {
+                    // if current character doesn't match our search, clear match flag
+                    str_matches.str_matches_arr[i].uint8_matched = FALSE;
+                }
+            }
+            else
+            {
+                /* Do Nothing - continue with dropping (dequeue) receive queue */
+            }
+        }
+
+        // get next character
+        uint8_index++;
+        uint16_a_received_length--;
+    }
+
+    /* Check if there's any match */
+    for (sint8_t_ i = 0; i < str_matches.size; ++i) {
+        if(str_matches.str_matches_arr[i].uint8_matched == TRUE)
+        {
+            enu_match_id = str_matches.str_matches_arr[i].enu_match_id;
+            break;
+        }
+    }
+
+    return enu_match_id;
 }
 
 /**
@@ -138,6 +235,6 @@ static void app_event_handler(uint8_t_ uint8_instance_id, str_operation_info_t_ 
     }
     else
     {
-            /* Do Nothing*/
+        /* Do Nothing*/
     }
 }

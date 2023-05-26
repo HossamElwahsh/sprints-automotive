@@ -15,13 +15,16 @@
 #define RECEIVE_LED_PORT   DIO_PORT_B
 #define RECEIVE_LED_PIN    DIO_PIN_2
 
-#define TEST_STR "\r\rLorem ipsum dolor sit amet, consectetur adipiscing elit.\r\r"
-
+#define TEST_STR "\r\rLorem ipsum dolor sit amet, test echo (0-9): "
 
 /* ECHO MODE */
-#define APP_TEST_ENABLE 1
-//#define APP_TEST_ENABLE 0
+//#define APP_TEST_ENABLE 1
+#define APP_TEST_ENABLE 0
 
+/* Size(count) of commands to cross-match on receive */
+#define MATCH_SIZE 2
+
+/* Commands */
 #define SYN_STR "BCM Operating"
 #define ACK_STR "Confirm BCM Operating"
 

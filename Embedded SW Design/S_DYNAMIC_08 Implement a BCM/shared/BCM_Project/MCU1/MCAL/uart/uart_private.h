@@ -14,14 +14,14 @@ typedef enum{
     UART_TX_STATE_IDLE = 0,
 
     /* Handshake States */
-    UART_TX_STATE_WAIT_FOR_HANDSHAKE,
-    UART_TX_STATE_HANDSHAKING,
-    UART_TX_STATE_HANDSHAKING_WAIT_ACK,
-    UART_TX_STATE_HANDSHAKE_OK,
-    UART_TX_STATE_HANDSHAKE_FAILED,
+//    UART_TX_STATE_WAIT_FOR_HANDSHAKE,
+//    UART_TX_STATE_HANDSHAKING,
+//    UART_TX_STATE_HANDSHAKING_WAIT_ACK,
+//    UART_TX_STATE_HANDSHAKE_OK,
+//    UART_TX_STATE_HANDSHAKE_FAILED,
 
     /* Sending SOT */
-    UART_TX_STATE_STARTING,
+//    UART_TX_STATE_STARTING,
 
     /* Wait for byte to transmit */
     UART_TX_STATE_WAIT,
@@ -36,7 +36,7 @@ typedef enum{
     UART_TX_STATE_SINGLE_TRANSMIT,
 
     /* Sending control chars silently */
-    UART_TX_STATE_TRANSMITTING_CONTROL_CHARS,
+//    UART_TX_STATE_TRANSMITTING_CONTROL_CHARS,
 
     UART_TX_STATE_COMPLETE
 }enu_uart_tx_state_t_;
@@ -50,7 +50,7 @@ typedef enum{
 //    UART_RX_STATE_COMPLETE,
 
     /* Waiting for ACK to start transmission */
-    UART_RX_STATE_HANDSHAKING_WAIT_ACK,
+//    UART_RX_STATE_HANDSHAKING_WAIT_ACK,
 }enu_uart_rx_state_t_;
 
 /* UART General States */

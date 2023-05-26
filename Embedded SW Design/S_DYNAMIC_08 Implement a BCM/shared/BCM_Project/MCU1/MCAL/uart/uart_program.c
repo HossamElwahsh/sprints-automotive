@@ -35,12 +35,8 @@ void (*gl_ptr_uart_event_handler)(uint8_t_, str_operation_info_t_) = NULL_PTR;
 /* UART Medium ID used with callback */
 static uint8_t_ gl_uint8_medium_id;
 
-/* Number of retries for handshake before failing to transmit */
-static uint8_t_ gluint8_tx_retries = UART_TX_RETRY_COUNT;
-
 /** Helper Private Functions Prototypes */
 static enu_uart_error_t_ uart_calculateUBBR(enu_uart_baud_rate_t_ enu_uart_baud_rate, enu_uart_speed_mode_t_ enu_uart_speed_mode, uint16_t_ * uint16ptr_a_UBBR_value);
-static enu_uart_error_t_ uart_handshake();
 static enu_uart_error_t_ uart_receiveByte(uint8_t_ * uint8ptr_data);
 static void uart_event_handler(enu_operation_t enu_a_operation, uint16_t_ uint16_a_data_length);
 
@@ -284,14 +280,7 @@ enu_uart_error_t_ uart_send(uint8_t_ uint8_data)
         {
             /* Transmit Single Byte  */
             glstr_uart_state.enu_uart_state = UART_STATE_TRANSMITTING;
-            if(UART_HANDSHAKE_ACK_CHAR == uint8_data)
-            {
-                glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_TRANSMITTING_CONTROL_CHARS;
-            }
-            else
-            {
-                glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_SINGLE_TRANSMIT;
-            }
+            glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_SINGLE_TRANSMIT;
             SET_BIT(UART_UCSRB_REG, UART_UCSRB_TXCIE); // enable transmission complete flag
             UART_UDR_REG = uint8_data; // put data
 
@@ -333,32 +322,21 @@ enu_uart_error_t_ uart_send_n(str_circularqueue_t_ ** str_send_queue, uint16_t_ 
         if(UART_BLOCKING == stglenu_uart_operating_mode)
         {
             /* Initialize Handshake */
-            enu_uart_error = uart_handshake();
-            if (enu_uart_error == UART_OK) {
-
-                /* Send SOT character */
-                uart_send(UART_SOT_CHAR);
-
-                /* Send Data */
-                while (0 < uint16_dataLength) {
-                    /* UART Transmit */
-                    if (NULL_PTR != str_send_queue) {
-                        uint8_t_ uint8_byte_to_send = 0;
-                        cqueue_dequeue(gluint8ptr_send_buffer, &uint8_byte_to_send);
-                        uart_send(uint8_byte_to_send);
-                        uint16_dataLength--;
-                    } else {
-                        break;
-                    }
+            /* Send Data */
+            while (0 < uint16_dataLength) {
+                /* UART Transmit */
+                if (NULL_PTR != str_send_queue) {
+                    uint8_t_ uint8_byte_to_send = 0;
+                    cqueue_dequeue(gluint8ptr_send_buffer, &uint8_byte_to_send);
+                    uart_send(uint8_byte_to_send);
+                    uint16_dataLength--;
+                } else {
+                    uart_send(UART_EOT_CHAR); // terminating character
+                    break;
                 }
-
-                /* Send terminating character */
-                uart_send(UART_EOT_CHAR);
-                enu_uart_error = UART_OK;
-            } else {
-                /* handshake failed */
             }
 
+            enu_uart_error = UART_OK;
 
 #if UART_DEBUG == TRUE
             uart_debugLogErrorCodes(enu_uart_error);
@@ -384,7 +362,8 @@ enu_uart_error_t_ uart_send_n(str_circularqueue_t_ ** str_send_queue, uint16_t_ 
                 }
                 gluint16_to_send_count += uint16_dataLength;
                 glstr_uart_state.enu_uart_state = UART_STATE_TRANSMITTING;
-                glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_WAIT_FOR_HANDSHAKE;
+//                glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_WAIT_FOR_HANDSHAKE;
+                glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_IN_PROGRESS;
 
                 enu_uart_error = UART_OK;
             }
@@ -402,7 +381,6 @@ enu_uart_error_t_ uart_send_n(str_circularqueue_t_ ** str_send_queue, uint16_t_ 
         else
         {
             enu_uart_error = UART_ERROR_CFG_INVALID_OPERATING_MODE;
-
 
             #if UART_DEBUG == TRUE
                         uart_debugLogErrorCodes(enu_uart_error);
@@ -427,44 +405,35 @@ enu_uart_error_t_ uart_receive(str_circularqueue_t_ ** str_circularqueue_queue, 
         enu_queue_error_t_ enu_queue_error = QUEUE_OK;
         uint8_t_ uint8_loc_tempByte = NULL;
         /* UART Receive Byte */
+
         enu_uart_error = uart_receiveByte(&uint8_loc_tempByte);
 
-        // check if long string being sent with handshake
-        if(UART_HANDSHAKE_SYN_CHAR == uint8_loc_tempByte)
+        while(((enu_uart_error == UART_OK) && (uint8_loc_tempByte != UART_EOT_CHAR)) && (QUEUE_FULL != enu_queue_error))
         {
-            uart_send(UART_HANDSHAKE_ACK_CHAR);
-
+            enu_queue_error = cqueue_enqueue(&glstr_cqueue_rec_buffer, uint8_loc_tempByte);
             enu_uart_error = uart_receiveByte(&uint8_loc_tempByte);
-
-            while(((enu_uart_error == UART_OK) && (uint8_loc_tempByte != UART_EOT_CHAR)) && (QUEUE_FULL != enu_queue_error))
-            {
-                enu_queue_error = cqueue_enqueue(&glstr_cqueue_rec_buffer, uint8_loc_tempByte);
-                enu_uart_error = uart_receiveByte(&uint8_loc_tempByte);
-            }
-
-            /* Return full data */
-            *str_circularqueue_queue = &glstr_cqueue_rec_buffer;
-
-
-            if(NULL_PTR != uint16_received_data_length)
-            {
-                *uint16_received_data_length = cqueue_getCount(&glstr_cqueue_rec_buffer);
-            }
         }
 
-        // compatibility fallback > if regular byte just read and return it
+        /* Return full data */
+        *str_circularqueue_queue = &glstr_cqueue_rec_buffer;
+
+
+        if(NULL_PTR != uint16_received_data_length)
+        {
+            *uint16_received_data_length = cqueue_getCount(&glstr_cqueue_rec_buffer);
+        }
+
+        /*// compatibility fallback > if regular byte just read and return it
         cqueue_enqueue(&glstr_cqueue_rec_buffer, uint8_loc_tempByte);
         *str_circularqueue_queue = &glstr_cqueue_rec_buffer;
 //        *uint8ptr_data = &gluint8_rec_buffer[gluint16_buffer_head];
         if(NULL_PTR != uint16_received_data_length)
         {
             *uint16_received_data_length = 1;
-        }
+        }*/
     }
     else if(UART_ASYNC == stglenu_uart_operating_mode)
     {
-        // todo notify the size (count) to the app/bcm in the event handler
-
         uint16_t_ uint16_data_count = cqueue_getCount(&glstr_cqueue_rec_buffer);
         if(0 == uint16_data_count)
         {
@@ -474,7 +443,6 @@ enu_uart_error_t_ uart_receive(str_circularqueue_t_ ** str_circularqueue_queue, 
         {
             /* Return last receive buffer data */
             *str_circularqueue_queue = &glstr_cqueue_rec_buffer;
-
 
             // return last data count
             if(NULL_PTR != uint16_received_data_length)
@@ -513,31 +481,6 @@ static enu_uart_error_t_ uart_receiveByte(uint8_t_ * uint8ptr_data)
     }
 
     return UART_OK;
-}
-
-/**
- * Helper Function, initiates handshake with other UARTs (sync)
- * @return enu_uart_error
- */
-static enu_uart_error_t_ uart_handshake()
-{
-    switch (stglenu_uart_operating_mode) {
-
-        case UART_BLOCKING:
-        {
-            uart_send(UART_HANDSHAKE_SYN_CHAR);
-            uint8_t_ loc_receivedByte = 0;
-            uart_receiveByte(&loc_receivedByte);
-            if(UART_HANDSHAKE_ACK_CHAR == loc_receivedByte)
-            {
-                return UART_OK;
-            }
-            // Else
-            return UART_ERROR_OPR_HAND_SHAKE_FAILED;
-        }
-        default:
-            return UART_ERROR_CFG_INVALID_OPERATING_MODE;
-    }
 }
 
 /**
@@ -594,64 +537,6 @@ enu_uart_error_t_ uart_dispatcher(void)
                 {
                     break;
                 }
-                case UART_TX_STATE_HANDSHAKING:
-                {
-                    break;
-                }
-                case UART_TX_STATE_WAIT_FOR_HANDSHAKE:
-                {
-                    // send SYN control command
-                    glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_HANDSHAKING;
-                    SET_BIT(UART_UCSRB_REG, UART_UCSRB_TXCIE);
-                    UART_UDR_REG = UART_HANDSHAKE_SYN_CHAR;
-                    break;
-                }
-                case UART_TX_STATE_HANDSHAKING_WAIT_ACK:
-                {
-                    /* Wait ACK from receiver */
-                    break;
-                }
-                case UART_TX_STATE_HANDSHAKE_OK:
-                {
-                    /* ACK OK - Send SOT Data */
-                    glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_STARTING;
-                    break;
-                }
-                case UART_TX_STATE_STARTING:
-                {
-                    /* ACK OK - Send SOT Data */
-                    glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_WAIT;
-                    UART_UDR_REG = UART_SOT_CHAR;
-                    break;
-                }
-                case UART_TX_STATE_HANDSHAKE_FAILED:
-                {
-                    /* ACK Failed */
-#if UART_DEBUG == TRUE
-                    uart_debugLogErrorCodes(UART_ERROR_OPR_HAND_SHAKE_FAILED);
-#endif
-                    if(0 < gluint8_tx_retries)
-                    {
-                        //retry
-                        gluint8_tx_retries--;
-                        glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_WAIT_FOR_HANDSHAKE;
-                    }else{
-                        // fail gracefully - reset transmitter
-                        glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_IDLE;
-                        glstr_uart_state.enu_uart_state = UART_STATE_IDLE;
-
-                        // reset retries
-                        gluint8_tx_retries = UART_TX_RETRY_COUNT;
-
-                        // notify upper layers
-                        /* callback transmission failure */
-                        uart_event_handler(TX_FAIL, 0);
-
-                        // todo do I need to reset/clear the send buffer or let the app decide?
-                    }
-
-                    break;
-                }
                 case UART_TX_STATE_IN_PROGRESS:
                 {
                     /* Ready to send next data */
@@ -670,14 +555,13 @@ enu_uart_error_t_ uart_dispatcher(void)
                         UART_UDR_REG = UART_EOT_CHAR;
                         gluint8ptr_send_buffer = NULL_PTR;
                     }
-
                     break;
                 }
                 case UART_TX_STATE_WAIT:
                     /* Wait for current byte to transmit successfully */
                     break;
-                case UART_TX_STATE_ENDING:
                 case UART_TX_STATE_SINGLE_TRANSMIT:
+                    // todo check flow
                     break;
                 case UART_TX_STATE_COMPLETE:
                 {
@@ -688,11 +572,8 @@ enu_uart_error_t_ uart_dispatcher(void)
                     uart_event_handler(TX_COMPLETE, 0);
                     break;
                 }
-                case UART_TX_STATE_TRANSMITTING_CONTROL_CHARS:
-                {
-                    /* Do Nothing */
+                case UART_TX_STATE_ENDING:
                     break;
-                }
             }
         }
         else if(UART_STATE_RECEIVING == glstr_uart_state.enu_uart_state)
@@ -729,8 +610,6 @@ enu_uart_error_t_ uart_dispatcher(void)
                     glstr_uart_state.enu_uart_state = UART_STATE_IDLE;
                     break;
                 }
-                case UART_RX_STATE_HANDSHAKING_WAIT_ACK:
-                    break;
             }
         }
         else if(UART_STATE_IDLE == glstr_uart_state.enu_uart_state)
@@ -801,49 +680,33 @@ ISR(USART_RXC_INT)
         case UART_RX_STATE_IDLE:
         case UART_RX_STATE_HAS_DATA:
         {
-
-            /* If UART Trying to SYN - reply with ACK */
-            if(UART_HANDSHAKE_SYN_CHAR == uint8_receivedByte)
+            /* Other Regular Data (Fallback) */
+            // enqueue received byte in receiver buffer
+            enu_queue_error_t_ enu_queue_error = cqueue_enqueue(&glstr_cqueue_rec_buffer, uint8_receivedByte);
+            if(enu_queue_error == QUEUE_FULL)
             {
-                /* Reply with ACK */
-                uart_send(UART_HANDSHAKE_ACK_CHAR);
-
-            }
-                /* If start character - goto in progress state */
-            else if(UART_SOT_CHAR == uint8_receivedByte)
-            {
-                /* Start Character, start receiving rest of text */
-                glstr_uart_state.enu_uart_state = UART_STATE_RECEIVING;
-                glstr_uart_state.enu_uart_rx_state = UART_RX_STATE_IN_PROGRESS;
+                /* Drop rest and stop receiving until upper layer reads data */
+                glstr_uart_state.enu_uart_state = UART_STATE_IDLE;
+                glstr_uart_state.enu_uart_rx_state = UART_RX_STATE_BUFFER_FULL;
             }
             else
             {
-                /* Other Regular Data (Fallback) */
-                // enqueue received byte in receiver buffer
-                enu_queue_error_t_ enu_queue_error = cqueue_enqueue(&glstr_cqueue_rec_buffer, uint8_receivedByte);
-                if(enu_queue_error == QUEUE_FULL)
+                // Notify Reception
+                /* Set end flag */
+                glstr_uart_state.enu_uart_state = UART_STATE_RECEIVING;
+                if (UART_EOT_CHAR != uint8_receivedByte)
                 {
-                    /* Drop rest and stop receiving until upper layer reads data */
-                    glstr_uart_state.enu_uart_state = UART_STATE_IDLE;
-                    glstr_uart_state.enu_uart_rx_state = UART_RX_STATE_BUFFER_FULL;
+                    glstr_uart_state.enu_uart_rx_state = UART_RX_STATE_IN_PROGRESS;
                 }
                 else
                 {
-                    // Notify Reception
-                    /* Set end flag */
-                    glstr_uart_state.enu_uart_state = UART_STATE_RECEIVING;
                     glstr_uart_state.enu_uart_rx_state = UART_RX_STATE_HAS_DATA; // dispatcher will notify and reset
                 }
             }
             break;
         }
         case UART_RX_STATE_IN_PROGRESS:
-
-            if(UART_SOT_CHAR == uint8_receivedByte)
-            {
-                /* DROP and resume */
-            }
-            else if(UART_EOT_CHAR == uint8_receivedByte)
+            if(UART_EOT_CHAR == uint8_receivedByte)
             {
                 // last byte
                 /* Set end flag */
@@ -866,22 +729,6 @@ ISR(USART_RXC_INT)
         case UART_RX_STATE_BUFFER_FULL:
             /* drop and wait for dispatcher to clear this flag */
             break;
-
-
-        case UART_RX_STATE_HANDSHAKING_WAIT_ACK:
-        {
-            /* Waiting for ACK to start transmission */
-            if(UART_HANDSHAKE_ACK_CHAR == uint8_receivedByte)
-            {
-                glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_HANDSHAKE_OK;
-            }
-            else
-            {
-                glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_HANDSHAKE_FAILED;
-            }
-            glstr_uart_state.enu_uart_rx_state = UART_RX_STATE_IDLE;
-            break;
-        }
     }
 
 }
@@ -904,33 +751,24 @@ ISR(USART_RXC_INT)
  */
 ISR(USART_TXC_INT)
 {
-//    uint8_t_ test = 1;
-//    uint16_t_ hello = test + 1;
-//    gluint16_counter = hello;
     /* Transmit */
-    if(UART_TX_STATE_HANDSHAKING == glstr_uart_state.enu_uart_tx_state)
-    {
-        /* Wait for ACK from Receiver Interrupt */
-        glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_HANDSHAKING_WAIT_ACK;
-        glstr_uart_state.enu_uart_rx_state = UART_RX_STATE_HANDSHAKING_WAIT_ACK;
-    }
-    else if(UART_TX_STATE_WAIT == glstr_uart_state.enu_uart_tx_state)
+    if(UART_TX_STATE_WAIT == glstr_uart_state.enu_uart_tx_state)
     {
         // allow sending next
         glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_IN_PROGRESS;
     }
-
-    /* EOT Sent Successfully */
     else if(UART_TX_STATE_ENDING == glstr_uart_state.enu_uart_tx_state)
     {
-
+        // allow sending next
         glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_COMPLETE;
     }
     /* Single byte transmission */
     else if(UART_TX_STATE_SINGLE_TRANSMIT == glstr_uart_state.enu_uart_tx_state)
     {
+        // send string terminating character
+        UART_UDR_REG = UART_EOT_CHAR;
+        glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_ENDING;
         // Dispatcher will take it from here to notify upper layers and reset states
-        glstr_uart_state.enu_uart_tx_state = UART_TX_STATE_COMPLETE;
     }
 }
 

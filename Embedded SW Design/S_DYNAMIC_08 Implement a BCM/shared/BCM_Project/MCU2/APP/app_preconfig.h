@@ -16,10 +16,13 @@
 #define RECEIVE_LED_PIN    DIO_PIN_1
 
 /* ECHO MODE */
-#define APP_TEST_ENABLE 1
-//#define APP_TEST_ENABLE 0
+//#define APP_TEST_ENABLE 1
+#define APP_TEST_ENABLE 0
 
+/* Size(count) of commands to cross-match on receive */
+#define MATCH_SIZE 2
+
+/* Commands */
 #define SYN_STR "BCM Operating"
 #define ACK_STR "Confirm BCM Operating"
-
 #endif /* APP_PRECONFIG_H_ */

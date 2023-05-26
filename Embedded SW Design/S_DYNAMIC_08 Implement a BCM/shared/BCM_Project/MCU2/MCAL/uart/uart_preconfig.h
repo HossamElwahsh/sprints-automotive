@@ -14,33 +14,12 @@
     #define F_OSC 8000000UL // 8 MHz
 #endif
 
-/*
- * Shows Syn/Ack/SOT/EOT characters on Virtual Terminal
- * To easily differentiate between data packets
- * */
-#define UART_SHOW_DEBUG_CHARS 1
-//#define UART_SHOW_DEBUG_CHARS 0
 
 /* TURN OFF FOR PRODUCTION USE */
-#define UART_DEBUG FALSE
+//#define UART_DEBUG 1
+#define UART_DEBUG 0
 
-#if UART_SHOW_DEBUG_CHARS
-    // Start of Transmission character
-    #define UART_SOT_CHAR '^'
-    // End of Transmission character
-    #define UART_EOT_CHAR '$'
-
-    #define UART_HANDSHAKE_SYN_CHAR '&'
-    #define UART_HANDSHAKE_ACK_CHAR '%'
-#else
-    // Start of Transmission character
-    #define UART_SOT_CHAR 0x02
-    // End of Transmission character
-    #define UART_EOT_CHAR 0x03
-
-    #define UART_HANDSHAKE_SYN_CHAR 0x05
-    #define UART_HANDSHAKE_ACK_CHAR 0x06
-#endif
+#define UART_EOT_CHAR '\0'
 
 #define UART_CARRIAGE_RETURN_CHAR 0x13  // Enter Key
 #define UART_NEW_LINE_CHAR 0x0D         // \r
