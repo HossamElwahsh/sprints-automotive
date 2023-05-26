@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+'Author: Hossam Elwahsh
+!theme cerulean
+title BCM Project Sequence Diagram
+
+skinparam backgroundColor #white
+
+
+== Normal Mode ==
+
+activate MCU1 #lightblue
+MCU1 -> MCU2: send "BCM Operating"
+activate MCU2 #darkSalmon
+MCU1 <-- MCU2: send "Confirm BCM Operating"
+deactivate MCU2
+deactivate MCU1
+
+== Test Mode ==
+MCU1 -> MCU1++#lightblue: init <iteration> = '0'
+
+loop test mode
+MCU1 -> MCU2++#darkSalmon: send "<test_str> + <iteration>"\n//i.e.: "Test Echo: 0"//
+MCU2 --> MCU1: reply "<test_str> + <iteration>"\n//i.e.: "Test Echo: 0"//
+deactivate MCU2
+    alt #lightgray iteration > '9'
+        MCU1 -> MCU1: reset <iteration> = 0
+
+    else #technology else
+        MCU1 -> MCU1: <iteration>++
+    end
+end
+deactivate MCU1
+
+@enduml

@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+'Author: Hossam Elwahsh
+!theme cerulean
+title BCM Project Sequence Diagram
+
+skinparam backgroundColor #white
+
+== Extended Diagram for Normal Mode ==
+MCU1 -> MCU1++#lightgreen: app_init
+MCU1 -> BCM_MCU1++: send "BCM Operating"
+BCM_MCU1 -> UART_MCU1++--: send "BCM Operating"
+UART_MCU1 -> UART_MCU2++:  send "BCM Operating"
+UART_MCU1 -> BCM_MCU1++--: (Callback) TX_COMPLETE
+BCM_MCU1 -> MCU1--#lightgreen: (Callback) BCM_TX_COMPLETE
+MCU1 -> MCU1: toggle Send LED
+UART_MCU2 -> BCM_MCU2--++:  (Callback) RX_COMPLETE
+BCM_MCU2 -> MCU2--++#darkSalmon: (Callback) BCM_RX_COMPLETE
+MCU2 -> BCM_MCU2++: Request Received Data
+BCM_MCU2 -> UART_MCU2++: Request Received Data
+UART_MCU2 --> BCM_MCU2--: Received Data (BCM Operating)
+BCM_MCU2 --> MCU2--: Received Data (BCM Operating)
+MCU2 -> MCU2: Toggle Receive LED
+alt Received data == BCM Operating
+MCU2 -> BCM_MCU2++: send "Confirm BCM Operating"
+BCM_MCU2 -> UART_MCU2++: send "Confirm BCM Operating"
+UART_MCU2 -> UART_MCU1++: send "Confirm BCM Operating"
+UART_MCU1 -> BCM_MCU1++--: (Callback) RX_COMPLETE
+BCM_MCU1 -> MCU1--: (Callback) BCM_RX_COMPLETE
+MCU1 -> MCU1: Toggle Receive LED
+UART_MCU2 -> BCM_MCU2--: (Callback) TX_COMPLETE
+MCU2 -> MCU2: Toggle Send LED
+BCM_MCU2 -> MCU2: (Callback) BCM_TX_COMPLETE
+
+end
+
+
+deactivate MCU2
+deactivate MCU1
+
+@enduml
