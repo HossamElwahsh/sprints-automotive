@@ -9,7 +9,7 @@ highest possible throughput.
 
 ## Quick Links
 > - `Project Documentation`
-    >     👉 PDF-uploading
+    >     👉 [PDF](https://github.com/HossamElwahsh/sprints-automotive/blob/cecb5c2abcbae1fcaac1a3a8283f19a8ed6262c7/Embedded%20SW%20Design/S_DYNAMIC_08%20Implement%20a%20BCM/shared/Documents/BCM_Hossam_Elwahsh.pdf)
     >     👉 [Google Docs](https://docs.google.com/document/d/1RGJPeiUToRLG9_xMESDV1yPxoA4-tSaAatRC9MfRurg/edit?usp=sharing)
 > - `Video` 👉 In Progress
 > - ---
