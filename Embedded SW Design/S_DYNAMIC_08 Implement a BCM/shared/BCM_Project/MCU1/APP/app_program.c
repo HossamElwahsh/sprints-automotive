@@ -104,7 +104,19 @@ void app_start()
                 // send next
                 app_send_test_data();
 #else
-                app_dequeue_match(uint16_received_length, str_receive_queue);
+                enu_match_id_t_ enu_match_id = app_dequeue_match(uint16_received_length, str_receive_queue);
+                switch (enu_match_id) {
+
+                    case NO_MATCH:
+                        break;
+                    case SYN_COMMAND:
+                        /* Str matches SYN command */
+                        /* Send (Reply back with) Confirmation Command */
+                        app_send_str(&gl_cst_str_data_bus, (uint8_t_ *) ACK_STR);
+                        break;
+                    case ACK_COMMAND:
+                        break;
+                }
 #endif
                 enu_app_state = APP_IDLE; // reset app state
                 break;
