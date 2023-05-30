@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/class-diagram
+'Author: Hossam Elwahsh
+
+'!theme aws-orange
+'!theme black-knight
+!theme blueprint
+'!theme carbon-gray
+'!theme cloudscape-design
+
+skinparam classAttributeFontSize 16
+skinparam classFontSize 18
+hide empty description
+
+[*] --> SOS_UNINITIALIZED
+
+state INITIALIZED_GROUP{
+    SOS_UNINITIALIZED -right[#lightgreen]-> SOS_READY : sos_init()
+
+
+    state SOS_SUPER_LOOP {
+        SOS_READY -down[#lightgreen]-> SOS_RUNNING : sos_run()
+        SOS_READY : * wait for run command //sos_run()//
+
+        SOS_RUNNING -right[#lightgreen]-> SOS_IDLE : SOS iteration executed
+        SOS_IDLE -left[#yellow]-> SOS_RUNNING : SOS TICK (timer ISR callback)
+
+
+        SOS_RUNNING: * execute tasks (prioritized)
+        SOS_RUNNING: * decrement/reset tasks delays
+
+        SOS_IDLE : * wait for next tick
+    }
+
+    SOS_SUPER_LOOP -left[#red]-> SOS_READY : stop button pressed
+
+}
+
+INITIALIZED_GROUP -left[#red]-> SOS_UNINITIALIZED : sos_deinit()
+'SOS_DE_INITIALIZED -down-> [*]
+'SOS_DE_INITIALIZED : * Stop SOS if started
+'SOS_DE_INITIALIZED : * de-initialize SOS
+
+@enduml

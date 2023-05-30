@@ -1,0 +1,79 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+'Author: Hossam Elwahsh
+!theme cerulean
+title Small OS System Sequence Diagram
+
+skinparam backgroundColor #white
+
+'== APP <-> SOS ==
+APP -[#lightslategray]> LED++#darkorange: led_init(led_0)
+return LED_OK
+APP -[#lightslategray]> LED++#darkorange: led_init(led_1)
+return LED_OK
+
+activate APP #lightslategray
+APP -[#lightslategray]> SOS++#goldenrod: sos_init
+SOS -[#goldenrod]> TIMER++#deepskyblue: timer_init()
+TIMER -[#goldenrod]-> SOS: TIMER_OK
+SOS -[#goldenrod]> TIMER: timer_setTickTimeMs(100)
+TIMER -[#goldenrod]-> SOS--: TIMER_OK
+
+SOS -[#lightslategray]-> APP--: //SOS_SUCCESS//
+
+APP -[#lightslategray]> SOS++#goldenrod: **sos_create_task(task1)** // Toggles LED_0 every 300ms//\n Priority: 1
+return //SOS_SUCCESS//
+
+APP -[#lightslategray]> SOS++#goldenrod: **sos_create_task(task2)** // Toggles LED_1 every 500ms//\n Priority: 2
+return //SOS_SUCCESS//
+
+== Wait For Start Button==
+
+
+loop
+    alt INT2: START BUTTON
+
+            APP -[#lightslategray]> SOS++#goldenrod: **sos_run()**
+
+            control LED_0_toggle_task as task1
+            control LED_1_toggle_task as task2
+            SOS -> TIMER++: **timer_start()**
+            Return //TIMER_OK//
+            loop
+
+
+                alt #lavender System Tick (timer callback)
+                    SOS->SOS++: Get current ready tasks (sorted by priority)
+            '        SOS-->SOS: **Highest Task**
+                    loop #yellow current ready tasks
+
+                        alt #beige Task == task1
+                                SOS->task1++#palevioletred: **run_task1()**
+'                                task1->LED++#darkorange: toggle LED_0
+'                                LED-->task1--: LED_OK
+                                task1-->SOS--: //task1 OK//
+
+                            else #aliceblue TASK == Task2
+
+                                SOS->task2++#bisque: **run_task2()**
+'                                task2->LED++#darkorange: toggle LED_1
+'                                LED-->task2--: LED_OK
+                                task2-->SOS--: //task2 OK//
+                            end
+
+                    end
+                    SOS->SOS--: Decrement delays counters for all tasks
+                else #lightgray Idle
+                    SOS -> SOS: IDLE
+                end
+
+                        break #salmon STOP BUTTON INTERRUPT
+                        end
+            end
+    else #lightgray wait for start button interrupt
+
+    end
+end
+
+
+@enduml

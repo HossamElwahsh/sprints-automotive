@@ -1,0 +1,66 @@
+@startuml
+'https://plantuml.com/class-diagram
+'Author: Hossam Elwahsh
+
+'!theme aws-orange
+'!theme black-knight
+'!theme blueprint
+!theme carbon-gray
+'!theme cloudscape-design
+
+skinparam classAttributeFontSize 16
+skinparam classFontSize 18
+
+
+
+class "SOS Module" {
+  - gl_enu_sos_state\t\t\t\t\t:\tenu_sos_state_t_
+  - gl_str_sos_database\t\t\t\t:\tstr_sos_database_t_
+
+  + sos_init\t\t\t(void)\t\t\t\t\t\t\t\t\t\t\t\t\t:\tenu_system_status_t_
+  + sos_deinit\t\t(void)\t\t\t\t\t\t\t\t\t\t\t\t\t:\tenu_system_status_t_
+  + sos_create_task\t(ptr_str_sos_task: str_sos_task_t_ *)\t\t\t\t\t\t\t:\tenu_system_status_t_
+  + sos_delete_task\t(uint16_task_id: uint16_t)\t\t\t\t\t\t\t\t\t:\tenu_system_status_t_
+  + sos_modify_task\t(ptr_str_sos_task: str_sos_task_t_*)\t\t\t\t\t\t\t:\tenu_system_status_t_
+  + sos_run\t\t\t(void)\t\t\t\t\t\t\t\t\t\t\t\t\t:\tenu_system_status_t_
+  + sos_disable\t\t(void)\t\t\t\t\t\t\t\t\t\t\t\t\t:\tenu_system_status_t_
+  - sos_tick_event\t(void)\t\t\t\t\t\t\t\t\t\t\t\t\t:\tvoid
+}
+
+enum enu_sos_state_t_ {
+  SOS_STATE_UNINITIALIZED
+  SOS_STATE_READY
+  SOS_STATE_RUNNING
+  SOS_STATE_IDLE
+'  SOS_STATE_STOPPED
+  SOS_STATE_TOTAL
+}
+
+struct str_sos_task_t_ {
+  uint16_task_unique_id\t\t:\t uint16_t
+  uint16_task_priority\t\t:\tuint16_t
+  uint16_task_interval\t\t:\tuint16_t
+  uint16_task_delay\t\t\t:\tuint16_t
+  ptr_fun_task\t\t\t\t:\tvoid(*)(void)
+}
+
+-struct str_sos_database_t_ {
+  uint16_active_tasks\t\t\t\t:\tuint16_t
+  ptr_arr_str_sos_tasks * [SOS_MAX_TASKS]\t:\tstr_sos_task_t_[]
+}
+
+enum enu_system_status_t_ {
+  SOS_STATUS_SUCCESS
+  SOS_STATUS_FAILED
+  SOS_STATUS_INVALID_STATE
+  SOS_STATUS_INVALID_TASK_ID
+  SOS_STATUS_TOTAL
+}
+
+"SOS Module" ..> "str_sos_task_t_"
+"SOS Module" ..> "str_sos_database_t_"
+"str_sos_database_t_" ..> "str_sos_task_t_"
+"SOS Module" ..> "enu_sos_state_t_"
+"SOS Module" ..> "enu_system_status_t_"
+
+@enduml
