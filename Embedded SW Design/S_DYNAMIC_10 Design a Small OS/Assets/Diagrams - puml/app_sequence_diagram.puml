@@ -7,11 +7,14 @@ title Small OS System Sequence Diagram
 skinparam backgroundColor #white
 
 '== APP <-> SOS ==
+participant APP #lightslategray
 activate APP #lightslategray
+participant LED #darkorange
 APP -[#lightslategray]> LED++#darkorange: led_init(led_0)
 return LED_OK
 APP -[#lightslategray]> LED++#darkorange: led_init(led_1)
 return LED_OK
+participant SOS #goldenrod
 APP -[#lightslategray]> SOS++#goldenrod: sos_init
 SOS -[#goldenrod]> TIMER++#deepskyblue: timer_init()
 TIMER -[#goldenrod]-> SOS: TIMER_OK
@@ -28,14 +31,13 @@ return //SOS_SUCCESS//
 
 == Wait For Start Button==
 
-
 loop
     alt INT2: START BUTTON
 
             APP -[#lightslategray]> SOS++#goldenrod: **sos_run()**
 
-            control LED_0_toggle_task as task1
-            control LED_1_toggle_task as task2
+            control task1 as task1 #palevioletred
+            control task2 as task2 #bisque
             SOS -> TIMER++: **timer_start()**
             Return //TIMER_OK//
             loop
