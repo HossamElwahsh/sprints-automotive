@@ -66,9 +66,11 @@ loop
                 else #lightgray Idle
                     SOS -> SOS: IDLE
                 end
+
+                break #salmon STOP BUTTON INTERRUPT
+                end
             end
-            break #salmon STOP BUTTON INTERRUPT
-            end
+
     else #lightgray wait for start button interrupt
 
     end
