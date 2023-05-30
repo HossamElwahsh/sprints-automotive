@@ -64,7 +64,7 @@ loop
                     end
                     SOS->SOS--: Decrement delays counters for all tasks
                 else #lightgray Idle
-                    SOS -> SOS: IDLE
+'                    SOS -> SOS: IDLE
                 end
 
                 break #salmon STOP BUTTON INTERRUPT
