@@ -32,7 +32,7 @@ state INITIALIZED_GROUP{
         SOS_IDLE : * wait for next tick
     }
 
-    SOS_SUPER_LOOP -left[#red]-> SOS_READY : stop button pressed
+    SOS_SUPER_LOOP -left[#red]-> SOS_READY : stop button pressed, //sos_disable()//
 
 }
 
