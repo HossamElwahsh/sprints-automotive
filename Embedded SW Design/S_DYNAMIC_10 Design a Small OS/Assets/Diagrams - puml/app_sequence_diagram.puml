@@ -7,12 +7,11 @@ title Small OS System Sequence Diagram
 skinparam backgroundColor #white
 
 '== APP <-> SOS ==
+activate APP #lightslategray
 APP -[#lightslategray]> LED++#darkorange: led_init(led_0)
 return LED_OK
 APP -[#lightslategray]> LED++#darkorange: led_init(led_1)
 return LED_OK
-
-activate APP #lightslategray
 APP -[#lightslategray]> SOS++#goldenrod: sos_init
 SOS -[#goldenrod]> TIMER++#deepskyblue: timer_init()
 TIMER -[#goldenrod]-> SOS: TIMER_OK
