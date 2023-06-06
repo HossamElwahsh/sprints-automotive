@@ -3,7 +3,7 @@
 ## DIO Driver - LED Sequence V1.0
 
 ## Quick Links
-- `Video` 👉 uploading
+- `Video` 👉 [Youtube](https://youtu.be/gsRKeVOuvK0)
 - `Project Hex` 👉 [Simulation/Led Sequence V1.0.hex](Simulation/Led%20Sequence%20V1.0.hex)
 
 ### Requirements
