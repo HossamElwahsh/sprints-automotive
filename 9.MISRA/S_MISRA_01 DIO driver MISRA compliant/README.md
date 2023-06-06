@@ -9,7 +9,7 @@
 ### Requirements
 #### You are supposed to refactor your DIO driver to be compliant with some MISRA rules.
 
-### 1. System Requirements Specifications
+### System Requirements Specifications
     Apply the below rules to your DIO driver
     - Rule 14.7, requires that functions with variable-length argument lists should not be called.
     - Rule 18.1, requires that all declarations should be at the top of the function or file scope.
