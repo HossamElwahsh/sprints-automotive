@@ -3,7 +3,7 @@
 ## Timer Driver - LED Sequence V3.0
 
 ## Quick Links
-- `Video` 👉 uploading
+- `Video` 👉 [youtube](https://youtu.be/HmCSQ3l8Hk8)
 - `Project Hex` 👉 [Simulation/Led Sequence V3.0.hex](Simulation/Led%20Sequence%20V3.0.hex)
 
 ### Requirements
