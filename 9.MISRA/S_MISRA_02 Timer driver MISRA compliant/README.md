@@ -4,7 +4,7 @@
 
 ## Quick Links
 - `Video` 👉 uploading
-- `Project Hex` 👉 [Simulation/Led Sequence V1.0.hex](Simulation/Led%20Sequence%20V3.0.hex)
+- `Project Hex` 👉 [Simulation/Led Sequence V3.0.hex](Simulation/Led%20Sequence%20V3.0.hex)
 
 ### Requirements
 #### You are supposed to refactor your Timer driver to be compliant with some MISRA rules.
