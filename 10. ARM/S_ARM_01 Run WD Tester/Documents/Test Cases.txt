@@ -1,0 +1,5 @@
+1. Normal - With Reset
+2. Normal - Without Reset
+3. NMI - with WDI enabled
+4. NMI - with WDI disabled
+5. Normal - With NVIC Interrupt disabled
