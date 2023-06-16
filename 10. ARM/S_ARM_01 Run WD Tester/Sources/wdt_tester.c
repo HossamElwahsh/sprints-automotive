@@ -12,6 +12,7 @@
 
 /*- LOCAL MACROS
 ------------------------------------------*/
+#define WDT_TIMEOUT	1000 	//Timeout in ms
 
 /*- GLOBAL STATIC VARIABLES
 -------------------------------*/
@@ -29,9 +30,9 @@ static void wdt_cb (void)
 -----------------------------------*/
 int main(void)
 {
-	wdt_cfg.timeout_ms			= 1000;
-	wdt_cfg.use_reset_mode	= 1;
-	wdt_cfg.use_test_mode 	= 1;
+	wdt_cfg.timeout_ms			= WDT_TIMEOUT;
+	wdt_cfg.use_reset_mode	= TRUE;
+	wdt_cfg.use_test_mode 	= TRUE;
 	wdt_cfg.wdt_index 			= WDT0;
 	wdt_cfg.wdt_int 				= USE_NORMAL_INT;
 	wdt_cfg.pf_wdt_cb 			=	wdt_cb;
