@@ -1,0 +1,111 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.38.0.0
+Copyright (C) 2022 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Hossam Elwahsh, Sprints, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.38.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.19
+Assembler:       Armasm.exe V6.19
+Linker/Locator:  ArmLink.exe V6.19
+Library Manager: ArmAr.exe V6.19
+Hex Converter:   FromElf.exe V6.19
+CPU DLL:         SARMCM3.DLL V5.38.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      lmidk-agdi.dll V???
+Dialog DLL:      TCM.DLL V1.56.4.0
+ 
+<h2>Project:</h2>
+D:\Data\Courses\Automotive Software - Sprints\Tasks\my-sprints-automotive-repo\10. ARM\S_ARM_01 Run WD Tester\wd tester.uvprojx
+Project File Date:  06/15/2023
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
+Rebuild target 'Target 1'
+Sources/wdt_tester.c(25): warning: function 'wdt_cb' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+Sources/wdt_tester.c(11): warning: In file included from...
+./Sources/wdt.h(44): warning: padding struct 'wdt_cfg_t' with 3 bytes to align 'timeout_ms' [-Wpadded]
+        uint32_t timeout_ms;            /*Timeout in milliseconds*/
+                 ^
+./Sources/wdt.h(48): warning: padding struct 'wdt_cfg_t' with 1 byte to align 'pf_wdt_cb' [-Wpadded]
+        tpf_wdt_cb pf_wdt_cb;           /*Callback to the app*/
+                   ^
+Sources/wdt_tester.c(43): warning: code will never be executed [-Wunreachable-code]
+        while(1)
+              ^
+4 warnings generated.
+compiling wdt_tester.c...
+compiling system_TM4C123.c...
+Sources/wdt_driver.c(48): warning: unused variable 'x' [-Wunused-variable]
+    static volatile uint8_t x;
+                            ^
+Sources/wdt_driver.c(46): warning: no previous prototype for function 'WDT0_Handler' [-Wmissing-prototypes]
+void WDT0_Handler(void)
+     ^
+Sources/wdt_driver.c(46): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void WDT0_Handler(void)
+^
+static 
+Sources/wdt_driver.c(54): warning: no previous prototype for function 'NMI_Handler' [-Wmissing-prototypes]
+void NMI_Handler (void)
+     ^
+Sources/wdt_driver.c(54): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void NMI_Handler (void)
+^
+static 
+Sources/wdt_driver.c(55): warning: function 'NMI_Handler' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+{
+^
+Sources/wdt_driver.c(12): warning: In file included from...
+./Sources/wdt.h(44): warning: padding struct 'wdt_cfg_t' with 3 bytes to align 'timeout_ms' [-Wpadded]
+        uint32_t timeout_ms;            /*Timeout in milliseconds*/
+                 ^
+./Sources/wdt.h(48): warning: padding struct 'wdt_cfg_t' with 1 byte to align 'pf_wdt_cb' [-Wpadded]
+        tpf_wdt_cb pf_wdt_cb;           /*Callback to the app*/
+                   ^
+6 warnings generated.
+compiling wdt_driver.c...
+assembling startup_TM4C123.s...
+linking...
+Program Size: Code=1616 RO-data=652 RW-data=4 ZI-data=648  
+FromELF: creating hex file...
+".\Objects\wd tester.axf" - 0 Error(s), 10 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.TM4C_DFP.1.1.0.pack
+                Keil.TM4C_DFP.1.1.0
+                Texas Instruments Tiva C Series Device Support and Examples
+   * Component: Startup Version: 1.0.1
+
+<h2>Collection of Component include folders:</h2>
+  ./RTE/_Target_1
+  C:/Users/hossam/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include
+  C:/Users/hossam/AppData/Local/Arm/Packs/Keil/TM4C_DFP/1.1.0/Device/Include/TM4C123
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.6.0
+
+   * Component: Keil::Device:Startup:1.0.1
+      Include file:  Device/Include/TM4C123/TM4C123.h
+      Source file:   Device/Source/ARM/startup_TM4C123.s
+      Source file:   Device/Source/system_TM4C123.c
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
